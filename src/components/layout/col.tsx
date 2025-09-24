@@ -27,16 +27,16 @@ interface ColProps {
   xl?: number;
 }
 
-const Col: React.FC<ColProps> = ({ children, className = '', xs, sm, md, lg, xl }) => {
+const Col: React.FC<ColProps> = ({ children, className = '', xs = 6, sm, md, lg, xl }) => {
     const colClasses: string[] = [];
 
     const breakpoints: Record<Breakpoint, number | undefined> = { xs, sm, md, lg, xl };
 
     Object.entries(breakpoints).forEach(([bp, span]) => {
         if (span && span >= 1 && span <= 12) {
-        const twClass = widthMap[span] ?? 'w-full';
-        const prefix = bp === 'xs' ? '' : `${bp}:`;
-        colClasses.push(`${prefix}${twClass}`);
+          const twClass = widthMap[span] ?? 'w-full';
+          const prefix = bp === 'xs' ? '' : `${bp}:`;
+          colClasses.push(`${prefix}${twClass}`);
         }
     });
 
