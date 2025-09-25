@@ -1,6 +1,10 @@
-import DefaultLayout from "@/layouts/default";
 import {
-  Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
 } from "@heroui/table";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
@@ -8,10 +12,13 @@ import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Pagination } from "@heroui/pagination";
-import RowsPerPage from "@/components/rows-per-page";
 import React, { useMemo, useState } from "react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
+
+import RowsPerPage from "@/components/rows-per-page";
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
+import DefaultLayout from "@/layouts/default";
 
 type MenuItem = {
   sku: string;
@@ -23,36 +30,111 @@ type MenuItem = {
 };
 
 const DATA: MenuItem[] = [
-  { sku: "COF-001", name: "Latte",         category: "Coffee",  price: 3.5, available: true,  tags: ["hot", "best"] },
-  { sku: "COF-002", name: "Espresso",      category: "Coffee",  price: 2.5, available: true,  tags: ["shot"] },
-  { sku: "TEA-010", name: "Matcha Latte",  category: "Tea",     price: 3.8, available: true,  tags: ["green"] },
-  { sku: "FD-101",  name: "Croissant",     category: "Bakery",  price: 2.2, available: false, tags: ["butter"] },
-  { sku: "FD-111",  name: "Cinnamon Roll", category: "Bakery",  price: 2.9, available: true,  tags: ["sweet"] },
-  { sku: "IC-210",  name: "Affogato",      category: "Dessert", price: 4.2, available: true,  tags: ["cold"] },
-  { sku: "TEA-021", name: "Lemon Tea",     category: "Tea",     price: 2.1, available: true,  tags: ["ice"] },
-  { sku: "COF-099", name: "Mocha",         category: "Coffee",  price: 3.7, available: true,  tags: ["choco"] },
-  { sku: "FD-222",  name: "Bagel",         category: "Bakery",  price: 1.9, available: true,  tags: ["sesame"] },
-  { sku: "FD-333",  name: "Brownie",       category: "Dessert", price: 2.7, available: true,  tags: ["cacao"] },
-  { sku: "TEA-031", name: "Peach Tea",     category: "Tea",     price: 2.6, available: true,  tags: ["fruit"] },
+  {
+    sku: "COF-001",
+    name: "Latte",
+    category: "Coffee",
+    price: 3.5,
+    available: true,
+    tags: ["hot", "best"],
+  },
+  {
+    sku: "COF-002",
+    name: "Espresso",
+    category: "Coffee",
+    price: 2.5,
+    available: true,
+    tags: ["shot"],
+  },
+  {
+    sku: "TEA-010",
+    name: "Matcha Latte",
+    category: "Tea",
+    price: 3.8,
+    available: true,
+    tags: ["green"],
+  },
+  {
+    sku: "FD-101",
+    name: "Croissant",
+    category: "Bakery",
+    price: 2.2,
+    available: false,
+    tags: ["butter"],
+  },
+  {
+    sku: "FD-111",
+    name: "Cinnamon Roll",
+    category: "Bakery",
+    price: 2.9,
+    available: true,
+    tags: ["sweet"],
+  },
+  {
+    sku: "IC-210",
+    name: "Affogato",
+    category: "Dessert",
+    price: 4.2,
+    available: true,
+    tags: ["cold"],
+  },
+  {
+    sku: "TEA-021",
+    name: "Lemon Tea",
+    category: "Tea",
+    price: 2.1,
+    available: true,
+    tags: ["ice"],
+  },
+  {
+    sku: "COF-099",
+    name: "Mocha",
+    category: "Coffee",
+    price: 3.7,
+    available: true,
+    tags: ["choco"],
+  },
+  {
+    sku: "FD-222",
+    name: "Bagel",
+    category: "Bakery",
+    price: 1.9,
+    available: true,
+    tags: ["sesame"],
+  },
+  {
+    sku: "FD-333",
+    name: "Brownie",
+    category: "Dessert",
+    price: 2.7,
+    available: true,
+    tags: ["cacao"],
+  },
+  {
+    sku: "TEA-031",
+    name: "Peach Tea",
+    category: "Tea",
+    price: 2.6,
+    available: true,
+    tags: ["fruit"],
+  },
 ];
 
 const ALL_TAGS = Array.from(new Set(DATA.flatMap((d) => d.tags))).sort();
 
 export default function MenuPage() {
-  // search umum
   const [query, setQuery] = useState("");
 
-  // 🔎 filters baru
   const [sku, setSku] = useState("");
   const [category, setCategory] = useState<"all" | MenuItem["category"]>("all");
-  const [available, setAvailable] = useState<"all" | "available" | "out">("all");
+  const [available, setAvailable] = useState<"all" | "available" | "out">(
+    "all",
+  );
   const [tagKeys, setTagKeys] = useState<Set<string>>(new Set());
 
-  // pagination
   const [rowsPerPage, setRowsPerPage] = useState("10");
   const [page, setPage] = useState(1);
 
-  // filter data
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     const skuQ = sku.trim().toLowerCase();
@@ -71,7 +153,6 @@ export default function MenuPage() {
         available === "all" ||
         (available === "available" ? m.available : !m.available);
 
-      // require ALL selected tags to be present (AND)
       const matchTags =
         selectedTags.length === 0 ||
         selectedTags.every((t) => m.tags.includes(t));
@@ -80,8 +161,10 @@ export default function MenuPage() {
     });
   }, [query, sku, category, available, tagKeys]);
 
-  // pagination controlled
-  const totalPages = Math.max(1, Math.ceil(filtered.length / Number(rowsPerPage)));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filtered.length / Number(rowsPerPage)),
+  );
   const safePage = Math.min(page, totalPages);
   const start = (safePage - 1) * Number(rowsPerPage);
   const slice = filtered.slice(start, start + Number(rowsPerPage));
@@ -90,11 +173,14 @@ export default function MenuPage() {
 
   return (
     <DefaultLayout>
+      <Breadcrumbs className="mb-5" size="lg">
+        <BreadcrumbItem>Home</BreadcrumbItem>
+        <BreadcrumbItem>Menu</BreadcrumbItem>
+      </Breadcrumbs>
       <Card>
         <CardHeader className="flex-col items-start gap-1">
           <div className="flex items-center gap-2">
             <p className="font-bold text-xl">Menu</p>
-            <a href="#" className="text-muted-foreground">#</a>
           </div>
         </CardHeader>
 
@@ -102,8 +188,8 @@ export default function MenuPage() {
           {/* Toolbar: search + filters */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Input
-              placeholder="Search menu"
               className="max-w-xs"
+              placeholder="Search menu"
               value={query}
               onValueChange={(v) => {
                 setQuery(v);
@@ -112,8 +198,8 @@ export default function MenuPage() {
             />
 
             <Input
-              placeholder="SKU"
               className="w-40"
+              placeholder="SKU"
               value={sku}
               onValueChange={(v) => {
                 setSku(v);
@@ -127,6 +213,7 @@ export default function MenuPage() {
               selectedKeys={[category]}
               onSelectionChange={(keys) => {
                 const val = Array.from(keys)[0] as string;
+
                 setCategory((val as any) || "all");
                 setPage(1);
               }}
@@ -144,6 +231,7 @@ export default function MenuPage() {
               selectedKeys={[available]}
               onSelectionChange={(keys) => {
                 const val = Array.from(keys)[0] as "all" | "available" | "out";
+
                 setAvailable(val);
                 setPage(1);
               }}
@@ -156,14 +244,15 @@ export default function MenuPage() {
             <Select
               aria-label="Tags"
               className="min-w-[10rem] max-w-xs"
-              selectionMode="multiple"
+              placeholder="Tags"
               selectedKeys={tagKeys}
+              selectionMode="multiple"
               onSelectionChange={(keys) => {
                 const arr = Array.from(keys as Set<React.Key>).map(String);
+
                 setTagKeys(new Set(arr));
                 setPage(1);
               }}
-              placeholder="Tags"
             >
               {ALL_TAGS.map((t) => (
                 <SelectItem key={t}>{t}</SelectItem>
@@ -171,7 +260,10 @@ export default function MenuPage() {
             </Select>
 
             <div className="ml-auto">
-              <Button color="warning" onPress={() => alert("Add Item clicked!")}>
+              <Button
+                color="warning"
+                onPress={() => alert("Add Item clicked!")}
+              >
                 Add Item
               </Button>
             </div>
@@ -179,8 +271,8 @@ export default function MenuPage() {
 
           {/* Table */}
           <Table
-            aria-label="Menu table"
             removeWrapper
+            aria-label="Menu table"
             className="[&_th]:py-3 [&_td]:py-3 [&_td]:text-sm [&_th]:text-xs"
           >
             <TableHeader>
@@ -199,7 +291,11 @@ export default function MenuPage() {
                   <TableCell>{m.category}</TableCell>
                   <TableCell>{money(m.price)}</TableCell>
                   <TableCell>
-                    <Chip size="sm" color={m.available ? "success" : "danger"} variant="flat">
+                    <Chip
+                      color={m.available ? "success" : "danger"}
+                      size="sm"
+                      variant="flat"
+                    >
                       {m.available ? "Available" : "Out"}
                     </Chip>
                   </TableCell>
@@ -220,19 +316,23 @@ export default function MenuPage() {
           {/* Footer */}
           <Row className="items-center mt-5">
             <Col xs={4}>
-                <span>Total Item: {filtered.length}</span>
+              <span>Total Item: {filtered.length}</span>
             </Col>
-            <Col xs={4} className="flex justify-center">
-              <Pagination page={safePage} total={totalPages} onChange={setPage} />
+            <Col className="flex justify-center" xs={4}>
+              <Pagination
+                page={safePage}
+                total={totalPages}
+                onChange={setPage}
+              />
             </Col>
-            <Col xs={4} className="flex justify-end">
-                <RowsPerPage
-                    value={rowsPerPage}
-                    onChange={(n) => {
-                        setRowsPerPage(String(n));
-                        setPage(1);
-                    }}
-                />
+            <Col className="flex justify-end" xs={4}>
+              <RowsPerPage
+                value={rowsPerPage}
+                onChange={(n) => {
+                  setRowsPerPage(String(n));
+                  setPage(1);
+                }}
+              />
             </Col>
           </Row>
         </CardBody>

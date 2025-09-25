@@ -1,4 +1,8 @@
 import { Button } from "@heroui/button";
+import { Accordion, AccordionItem } from "@heroui/accordion";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import Col from "./layout/col";
 import Container from "./layout/container";
 import Row from "./layout/row";
@@ -13,9 +17,6 @@ import {
   SettingIcon,
   UserIcon,
 } from "./icons";
-import { Accordion, AccordionItem } from "@heroui/accordion";
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
   const iconClassName = "w-5 h-5 text-gray-800 border-none";
@@ -31,13 +32,18 @@ export default function Sidebar() {
 
   const linkTo = (label: string, parent?: string) => {
     const slug = toSlug(label);
+
     if (!parent && slug === "overview") return "/";
+
     return `/${parent ? `${toSlug(parent)}/` : ""}${slug}`;
   };
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
-    return location.pathname === path || location.pathname.startsWith(path + "/");
+
+    return (
+      location.pathname === path || location.pathname.startsWith(path + "/")
+    );
   };
 
   const baseBtn = "justify-start w-full mt-2";
@@ -53,8 +59,8 @@ export default function Sidebar() {
 
   const NavButton: React.FC<NavBtnProps> = ({ to, label, Icon, className }) => (
     <Button
-      variant="light"
       className={`${baseBtn} ${isActive(to) ? activeBtn : ""} ${className ?? ""}`}
+      variant="light"
       onPress={() => navigate(to)}
     >
       {Icon ? <Icon className={iconClassName} /> : null}
@@ -77,58 +83,82 @@ export default function Sidebar() {
       </Row>
 
       <Container className="mt-5">
-        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">OVERVIEW</p>
+        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">
+          OVERVIEW
+        </p>
       </Container>
       <div>
-        <NavButton to={linkTo("Overview")} label="Overview" Icon={HomeIcon} />
-        <NavButton to={linkTo("Orders")} label="Orders" Icon={OrderIcon} />
-        <NavButton to={linkTo("Menu")} label="Menu" Icon={MenuIcon} />
-        <NavButton to={linkTo("Analytics")} label="Analytics" Icon={AnalyticIcon} />
+        <NavButton Icon={HomeIcon} label="Overview" to={linkTo("Overview")} />
+        <NavButton Icon={OrderIcon} label="Orders" to={linkTo("Orders")} />
+        <NavButton Icon={MenuIcon} label="Menu" to={linkTo("Menu")} />
+        <NavButton
+          Icon={AnalyticIcon}
+          label="Analytics"
+          to={linkTo("Analytics")}
+        />
       </div>
 
       <Container className="mt-5">
-        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">MANAGEMENT</p>
+        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">
+          MANAGEMENT
+        </p>
       </Container>
       <div>
         <Accordion isCompact variant="splitted">
           <AccordionItem
-            startContent={<FolderIcon className={iconClassName} />}
             key="1"
             aria-label="catalog"
+            startContent={<FolderIcon className={iconClassName} />}
             title="Catalog"
           >
-            <NavButton to={linkTo("Categories", "Catalog")} label="Categories" />
-            <NavButton to={linkTo("Modifier", "Catalog")} label="Modifier" />
+            <NavButton
+              label="Categories"
+              to={linkTo("Categories", "Catalog")}
+            />
+            <NavButton label="Modifier" to={linkTo("Modifier", "Catalog")} />
           </AccordionItem>
 
           <AccordionItem
-            startContent={<OperationIcon className={iconClassName} />}
             key="2"
             aria-label="operations"
+            startContent={<OperationIcon className={iconClassName} />}
             title="Operations"
           >
-            <NavButton to={linkTo("Kitchen Display", "Operations")} label="Kitchen Display" />
-            <NavButton to={linkTo("Shift", "Operations")} label="Shift" />
+            <NavButton
+              label="Kitchen Display"
+              to={linkTo("Kitchen Display", "Operations")}
+            />
+            <NavButton label="Shift" to={linkTo("Shift", "Operations")} />
           </AccordionItem>
 
           <AccordionItem
-            startContent={<UserIcon className={iconClassName} />}
             key="3"
             aria-label="users & role"
+            startContent={<UserIcon className={iconClassName} />}
             title="Users & Role"
           >
-            <NavButton to={linkTo("Users", "Users & Role")} label="Users" />
-            <NavButton to={linkTo("Role", "Users & Role")} label="Role" />
+            <NavButton label="Users" to={linkTo("Users", "Users & Role")} />
+            <NavButton label="Role" to={linkTo("Role", "Users & Role")} />
           </AccordionItem>
         </Accordion>
       </div>
 
       <Container className="mt-5">
-        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">SYSTEM</p>
+        <p className="mb-2 text-xs uppercase font-semibold text-gray-500">
+          SYSTEM
+        </p>
       </Container>
       <div>
-        <NavButton to={linkTo("Settings")} label="Settings" Icon={SettingIcon} />
-        <NavButton to={linkTo("Audit Log")} label="Audit Log" Icon={AuditLogIcon} />
+        <NavButton
+          Icon={SettingIcon}
+          label="Settings"
+          to={linkTo("Settings")}
+        />
+        <NavButton
+          Icon={AuditLogIcon}
+          label="Audit Log"
+          to={linkTo("Audit Log")}
+        />
       </div>
     </div>
   );
