@@ -53,12 +53,14 @@ export default function OrdersPage() {
         start: null,
         end: null,
     });
+
+    const [rowsPerPage, setRowsPerPage] = useState("10");
+    const [page, setPage] = useState(1);
   
     const filtered = useMemo(() => {
         return orders.filter((o) => {
           const created = dayjs(o.created, "YYYY-MM-DD HH:mm");
     
-          // search utama (id / customer)
           const matchQuery =
             query === "" ||
             o.id.toLowerCase().includes(query.toLowerCase()) ||
@@ -66,12 +68,10 @@ export default function OrdersPage() {
     
           const matchStatus = status === "all" || o.status === status;
     
-          // NEW: filter khusus customer (substring, case-insensitive)
           const matchCustomer =
             customerName.trim() === "" ||
             o.customer.toLowerCase().includes(customerName.trim().toLowerCase());
     
-          // filter tanggal (inklusif)
           let matchDate = true;
           if (dateRange.start) matchDate = matchDate && created.isAfter(dateRange.start.subtract(1, "day"));
           if (dateRange.end)   matchDate = matchDate && created.isBefore(dateRange.end.add(1, "day"));
@@ -80,6 +80,11 @@ export default function OrdersPage() {
         });
     }, [query, status, dateRange, customerName]);
 
+    // pagination controlled
+    const totalPages = Math.max(1, Math.ceil(filtered.length / Number(rowsPerPage)));
+    const safePage = Math.min(page, totalPages);
+    const start = (safePage - 1) * Number(rowsPerPage);
+    const slice = filtered.slice(start, start + Number(rowsPerPage));
     return (
         <DefaultLayout>
             <Breadcrumbs size="lg" className="mb-5">
@@ -158,7 +163,7 @@ export default function OrdersPage() {
                             <TableColumn>CREATED</TableColumn>
                         </TableHeader>
                         <TableBody>
-                        {filtered.map((order) => (
+                        {slice.map((order) => (
                             <TableRow key={order.id}>
                             <TableCell>{order.id}</TableCell>
                             <TableCell>{order.customer}</TableCell>
@@ -179,7 +184,13 @@ export default function OrdersPage() {
                             <Pagination initialPage={1} total={10} />
                         </Col>
                         <Col xs={4} className="flex justify-end">
-                            <RowsPerPage />
+                            <RowsPerPage
+                                value={rowsPerPage}
+                                onChange={(n) => {
+                                    setRowsPerPage(String(n));
+                                    setPage(1);
+                                }}
+                            />
                         </Col>
                     </Row>
                 </CardBody>
