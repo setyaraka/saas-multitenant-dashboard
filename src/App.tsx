@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 
-import PricingPage from "@/pages/pricing";
-import BlogPage from "@/pages/blog";
-import AboutPage from "@/pages/about";
 import OverviewPage from "./pages/overview";
 import OrdersPage from "./pages/order";
 import MenuPage from "./pages/menu";
+
+import PricingPage from "@/pages/pricing";
+import BlogPage from "@/pages/blog";
+import AboutPage from "@/pages/about";
 
 function App() {
   return (
