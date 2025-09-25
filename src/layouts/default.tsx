@@ -1,8 +1,5 @@
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import { Link } from "@heroui/link";
-
-// import { Navbar } from "@/components/navbar";
 
 export default function DefaultLayout({
   children,
@@ -14,7 +11,7 @@ export default function DefaultLayout({
       <Navbar />
       <div className="flex">
         <Sidebar />
-        <main className="w-full mx-auto bg-gray-100 px-6 flex-grow pt-16">
+        <main className="w-full mx-auto bg-gray-100 px-6 flex-grow pt-7">
           {children}
         </main>
       </div>
