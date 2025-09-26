@@ -11,14 +11,11 @@ import { Select, SelectItem } from "@heroui/select";
 import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
-import { Pagination } from "@heroui/pagination";
 import React, { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
-import RowsPerPage from "@/components/rows-per-page";
-import Row from "@/components/layout/row";
-import Col from "@/components/layout/col";
 import DefaultLayout from "@/layouts/default";
+import TableFooter from "@/components/table-footer";
 
 type MenuItem = {
   sku: string;
@@ -132,7 +129,7 @@ export default function MenuPage() {
   );
   const [tagKeys, setTagKeys] = useState<Set<string>>(new Set());
 
-  const [rowsPerPage, setRowsPerPage] = useState("10");
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
@@ -171,6 +168,18 @@ export default function MenuPage() {
 
   const money = (n: number) => `$${n.toFixed(2)}`;
 
+  const resetFilters = () => {
+    setQuery("");
+    setSku("");
+    setCategory("all");
+    setAvailable("all");
+    setTagKeys(new Set());
+    setRowsPerPage(10);
+    setPage(1);
+  };
+
+  const isFilterActive = query !== "" || sku !== "" || category !== "all" || available !== "all" || tagKeys !== new Set();
+
   return (
     <DefaultLayout>
       <Breadcrumbs className="mb-5" size="lg">
@@ -185,7 +194,6 @@ export default function MenuPage() {
         </CardHeader>
 
         <CardBody>
-          {/* Toolbar: search + filters */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Input
               className="max-w-xs"
@@ -259,9 +267,16 @@ export default function MenuPage() {
               ))}
             </Select>
 
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-2">
+            <Button
+                isDisabled={!isFilterActive}
+                variant="flat"
+                onPress={resetFilters}
+              >
+                Reset
+              </Button>
               <Button
-                color="warning"
+                color="primary"
                 onPress={() => alert("Add Item clicked!")}
               >
                 Add Item
@@ -269,7 +284,6 @@ export default function MenuPage() {
             </div>
           </div>
 
-          {/* Table */}
           <Table
             removeWrapper
             aria-label="Menu table"
@@ -313,28 +327,13 @@ export default function MenuPage() {
             </TableBody>
           </Table>
 
-          {/* Footer */}
-          <Row className="items-center mt-5">
-            <Col xs={4}>
-              <span>Total Item: {filtered.length}</span>
-            </Col>
-            <Col className="flex justify-center" xs={4}>
-              <Pagination
-                page={safePage}
-                total={totalPages}
-                onChange={setPage}
-              />
-            </Col>
-            <Col className="flex justify-end" xs={4}>
-              <RowsPerPage
-                value={rowsPerPage}
-                onChange={(n) => {
-                  setRowsPerPage(String(n));
-                  setPage(1);
-                }}
-              />
-            </Col>
-          </Row>
+          <TableFooter
+            page={page}
+            pageSize={rowsPerPage}
+            totalItems={filtered.length}
+            onPageChange={setPage}
+            onPageSizeChange={setRowsPerPage}
+          />
         </CardBody>
       </Card>
     </DefaultLayout>
