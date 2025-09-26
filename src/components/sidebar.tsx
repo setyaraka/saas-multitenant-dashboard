@@ -135,7 +135,7 @@ export default function Sidebar() {
             key="3"
             aria-label="users & role"
             startContent={<UserIcon className={iconClassName} />}
-            title="Users & Role"
+            title="Users & Roles"
           >
             <NavButton label="Users" to={linkTo("Users", "Users & Role")} />
             <NavButton label="Role" to={linkTo("Role", "Users & Role")} />

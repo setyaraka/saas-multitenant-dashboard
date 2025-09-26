@@ -178,7 +178,12 @@ export default function MenuPage() {
     setPage(1);
   };
 
-  const isFilterActive = query !== "" || sku !== "" || category !== "all" || available !== "all" || tagKeys !== new Set();
+  const isFilterActive =
+    query !== "" ||
+    sku !== "" ||
+    category !== "all" ||
+    available !== "all" ||
+    tagKeys !== new Set();
 
   return (
     <DefaultLayout>
@@ -268,7 +273,7 @@ export default function MenuPage() {
             </Select>
 
             <div className="ml-auto flex items-center gap-2">
-            <Button
+              <Button
                 isDisabled={!isFilterActive}
                 variant="flat"
                 onPress={resetFilters}

@@ -12,6 +12,7 @@ import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Select, SelectItem } from "@heroui/select";
 import { useMemo, useState } from "react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
 import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
@@ -160,6 +161,11 @@ export default function UsersPage() {
 
   return (
     <DefaultLayout>
+      <Breadcrumbs className="mb-5" size="lg">
+        <BreadcrumbItem>Home</BreadcrumbItem>
+        <BreadcrumbItem>Users & Roles</BreadcrumbItem>
+        <BreadcrumbItem>Users</BreadcrumbItem>
+      </Breadcrumbs>
       <Card>
         <CardHeader className="flex-col items-start gap-1">
           <div className="flex items-center gap-2">
