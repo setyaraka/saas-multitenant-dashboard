@@ -8,6 +8,9 @@ import AppearanceSettings, { AppearanceValues } from "./appearance";
 import CustomDomainCard, { DomainValues } from "./custom-domain";
 import BillingSection, { BillingValues } from "./billing";
 import { Invoice } from "./invoice-table";
+import ThirdPartySection, { ThirdPartyValues } from "./third-party";
+import AuthenticationSection, { AuthValues } from "./authentication";
+import RoleMatrixSection, { RoleMatrix, SCOPES } from "./role-matrix";
 
 import DefaultLayout from "@/layouts/default";
 
@@ -24,6 +27,62 @@ type SectionKey =
   | "profile"
   | "notifications"
   | "accessibility";
+
+const INVOICES: Invoice[] = [
+  {
+    id: "INV-2025-0005",
+    date: "2025-09-10",
+    periodFrom: "2025-08-01",
+    periodTo: "2025-08-31",
+    total: 49,
+    status: "paid",
+    pdfUrl: "/invoices/INV-2025-0005.pdf",
+  },
+  {
+    id: "INV-2025-0004",
+    date: "2025-08-10",
+    periodFrom: "2025-07-01",
+    periodTo: "2025-07-31",
+    total: 49,
+    status: "paid",
+    pdfUrl: "/invoices/INV-2025-0004.pdf",
+  },
+  {
+    id: "INV-2025-0003",
+    date: "2025-07-10",
+    periodFrom: "2025-06-01",
+    periodTo: "2025-06-30",
+    total: 49,
+    status: "refunded",
+    pdfUrl: "/invoices/INV-2025-0003.pdf",
+  },
+  {
+    id: "INV-2025-0002",
+    date: "2025-06-10",
+    periodFrom: "2025-05-01",
+    periodTo: "2025-05-31",
+    total: 49,
+    status: "paid",
+    pdfUrl: "/invoices/INV-2025-0002.pdf",
+  },
+  {
+    id: "INV-2025-0001",
+    date: "2025-05-10",
+    periodFrom: "2025-04-01",
+    periodTo: "2025-04-30",
+    total: 49,
+    status: "past_due",
+    pdfUrl: "/invoices/INV-2025-0001.pdf",
+  },
+];
+
+const DEFAULT_MATRIX: RoleMatrix = {
+  Admin: [...SCOPES],
+  Manager: ["orders.read", "orders.update", "menu.manage"],
+  Cashier: ["orders.read"],
+  Kitchen: ["orders.read"],
+  Viewer: [],
+};
 
 export default function SettingsPage() {
   const [section, setSection] = useState<SectionKey>("appearance");
@@ -50,53 +109,19 @@ export default function SettingsPage() {
     priceLabel: "$49 / month",
   });
 
-  const INVOICES: Invoice[] = [
-    {
-      id: "INV-2025-0005",
-      date: "2025-09-10",
-      periodFrom: "2025-08-01",
-      periodTo: "2025-08-31",
-      total: 49,
-      status: "paid",
-      pdfUrl: "/invoices/INV-2025-0005.pdf",
-    },
-    {
-      id: "INV-2025-0004",
-      date: "2025-08-10",
-      periodFrom: "2025-07-01",
-      periodTo: "2025-07-31",
-      total: 49,
-      status: "paid",
-      pdfUrl: "/invoices/INV-2025-0004.pdf",
-    },
-    {
-      id: "INV-2025-0003",
-      date: "2025-07-10",
-      periodFrom: "2025-06-01",
-      periodTo: "2025-06-30",
-      total: 49,
-      status: "refunded",
-      pdfUrl: "/invoices/INV-2025-0003.pdf",
-    },
-    {
-      id: "INV-2025-0002",
-      date: "2025-06-10",
-      periodFrom: "2025-05-01",
-      periodTo: "2025-05-31",
-      total: 49,
-      status: "paid",
-      pdfUrl: "/invoices/INV-2025-0002.pdf",
-    },
-    {
-      id: "INV-2025-0001",
-      date: "2025-05-10",
-      periodFrom: "2025-04-01",
-      periodTo: "2025-04-30",
-      total: 49,
-      status: "past_due",
-      pdfUrl: "/invoices/INV-2025-0001.pdf",
-    },
-  ];
+  const [third, setThird] = useState<ThirdPartyValues>({
+    slackSendOrderEvents: false,
+    zapierEnableTriggers: false,
+    webhookUrl: "",
+  });
+
+  const [auth, setAuth] = useState<AuthValues>({
+    enforceMFA: false,
+    sso: "disabled",
+    allowedDomains: "",
+  });
+
+  const [matrix, setMatrix] = useState<RoleMatrix>(DEFAULT_MATRIX);
 
   const renderSection = () => {
     switch (section) {
@@ -128,6 +153,22 @@ export default function SettingsPage() {
             }
           />
         );
+      case "integrations":
+        return (
+          <ThirdPartySection
+            values={third}
+            onChange={(patch) => setThird((prev) => ({ ...prev, ...patch }))}
+          />
+        );
+      case "sso":
+        return (
+          <AuthenticationSection
+            values={auth}
+            onChange={(patch) => setAuth((prev) => ({ ...prev, ...patch }))}
+          />
+        );
+      case "roles":
+        return <RoleMatrixSection values={matrix} onChange={setMatrix} />;
       default:
         return (
           <Card className="border">
