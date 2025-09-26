@@ -10,17 +10,14 @@ import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
-import { Pagination } from "@heroui/pagination";
 import { useMemo, useState } from "react";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { DateRangePicker } from "@heroui/date-picker";
 import dayjs, { Dayjs } from "dayjs";
 
-import Row from "@/components/layout/row";
-import Col from "@/components/layout/col";
 import StatusChip from "@/components/status-chip";
-import RowsPerPage from "@/components/rows-per-page";
 import DefaultLayout from "@/layouts/default";
+import TableFooter from "@/components/table-footer";
 
 type Order = {
   id: string;
@@ -127,7 +124,7 @@ export default function OrdersPage() {
     end: null,
   });
 
-  const [rowsPerPage, setRowsPerPage] = useState("10");
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
@@ -164,6 +161,15 @@ export default function OrdersPage() {
   const safePage = Math.min(page, totalPages);
   const start = (safePage - 1) * Number(rowsPerPage);
   const slice = filtered.slice(start, start + Number(rowsPerPage));
+
+  const resetFilters = () => {
+    setQuery("");
+    setCustomerName("");
+    setStatus("all");
+    setPage(1);
+  };
+
+  const isFilterActive = query !== "" || customerName !== "" || status !== "all";
 
   return (
     <DefaultLayout>
@@ -226,12 +232,11 @@ export default function OrdersPage() {
 
             <div className="ml-auto flex items-center gap-2">
               <Button
-                color="warning"
-                size="md"
-                variant="solid"
-                onPress={() => window.location.reload()}
+                isDisabled={!isFilterActive}
+                variant="flat"
+                onPress={resetFilters}
               >
-                Refresh
+                Reset
               </Button>
             </div>
           </div>
@@ -261,23 +266,13 @@ export default function OrdersPage() {
             </TableBody>
           </Table>
 
-          <Row className="items-center mt-5">
-            <Col xs={4}>
-              <span>Total Item: {filtered.length}</span>
-            </Col>
-            <Col className="flex justify-center" xs={4}>
-              <Pagination initialPage={1} total={10} />
-            </Col>
-            <Col className="flex justify-end" xs={4}>
-              <RowsPerPage
-                value={rowsPerPage}
-                onChange={(n) => {
-                  setRowsPerPage(String(n));
-                  setPage(1);
-                }}
-              />
-            </Col>
-          </Row>
+          <TableFooter
+            page={page}
+            pageSize={rowsPerPage}
+            totalItems={filtered.length}
+            onPageChange={setPage}
+            onPageSizeChange={setRowsPerPage}
+          />
         </CardBody>
       </Card>
     </DefaultLayout>
