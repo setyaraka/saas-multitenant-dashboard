@@ -169,7 +169,8 @@ export default function OrdersPage() {
     setPage(1);
   };
 
-  const isFilterActive = query !== "" || customerName !== "" || status !== "all";
+  const isFilterActive =
+    query !== "" || customerName !== "" || status !== "all";
 
   return (
     <DefaultLayout>

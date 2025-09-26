@@ -4,6 +4,7 @@ import OverviewPage from "./pages/overview";
 import OrdersPage from "./pages/order";
 import MenuPage from "./pages/menu";
 import UsersPage from "./pages/user";
+import RolesPage from "./pages/role";
 
 import PricingPage from "@/pages/pricing";
 import BlogPage from "@/pages/blog";
@@ -21,7 +22,7 @@ function App() {
       <Route element={<BlogPage />} path="/operations/kitchen-display" />
       <Route element={<AboutPage />} path="/operations/shift" />
       <Route element={<UsersPage />} path="/users-and-role/users" />
-      <Route element={<PricingPage />} path="/users-and-role/role" />
+      <Route element={<RolesPage />} path="/users-and-role/role" />
       <Route element={<BlogPage />} path="settings" />
       <Route element={<AboutPage />} path="audit-log" />
     </Routes>
