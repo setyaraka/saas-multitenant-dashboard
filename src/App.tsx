@@ -7,6 +7,7 @@ import UsersPage from "./pages/user";
 import RolesPage from "./pages/role";
 import CategoriesPage from "./pages/categories";
 import ModifiersPage from "./pages/modifiers";
+import SettingsPage from "./pages/settings";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
@@ -24,7 +25,7 @@ function App() {
       <Route element={<AboutPage />} path="/operations/shift" />
       <Route element={<UsersPage />} path="/users-and-role/users" />
       <Route element={<RolesPage />} path="/users-and-role/role" />
-      <Route element={<BlogPage />} path="settings" />
+      <Route element={<SettingsPage />} path="settings" />
       <Route element={<AboutPage />} path="audit-log" />
     </Routes>
   );
