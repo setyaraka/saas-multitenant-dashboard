@@ -5,8 +5,9 @@ import OrdersPage from "./pages/order";
 import MenuPage from "./pages/menu";
 import UsersPage from "./pages/user";
 import RolesPage from "./pages/role";
+import CategoriesPage from "./pages/categories";
+import ModifiersPage from "./pages/modifiers";
 
-import PricingPage from "@/pages/pricing";
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
 
@@ -17,8 +18,8 @@ function App() {
       <Route element={<OrdersPage />} path="/orders" />
       <Route element={<MenuPage />} path="/menu" />
       <Route element={<BlogPage />} path="/analytics" />
-      <Route element={<AboutPage />} path="/catalog/categories" />
-      <Route element={<PricingPage />} path="/catalog/modifier" />
+      <Route element={<CategoriesPage />} path="/catalog/categories" />
+      <Route element={<ModifiersPage />} path="/catalog/modifier" />
       <Route element={<BlogPage />} path="/operations/kitchen-display" />
       <Route element={<AboutPage />} path="/operations/shift" />
       <Route element={<UsersPage />} path="/users-and-role/users" />
