@@ -274,7 +274,7 @@ export default function AnalyticsPage() {
                     </div>
                   </CardHeader>
                   <CardBody>
-                    <div className="h-[280px]">
+                    <div className="h-70">
                       <ResponsiveContainer height="100%" width="100%">
                         <LineChart
                           data={bucketed}
@@ -321,7 +321,7 @@ export default function AnalyticsPage() {
                     </div>
                   </CardHeader>
                   <CardBody>
-                    <div className="h-[280px]">
+                    <div className="h-60">
                       <ResponsiveContainer height="100%" width="100%">
                         <BarChart
                           data={byCategory}
@@ -341,8 +341,6 @@ export default function AnalyticsPage() {
                           <Tooltip
                             contentStyle={{
                               borderRadius: 12,
-                              border: "1px solid var(--border)",
-                              boxShadow: "var(--shadow)",
                             }}
                             formatter={(val: any) => [String(val), "Orders"]}
                           />
@@ -369,7 +367,6 @@ export default function AnalyticsPage() {
                   <Table
                     removeWrapper
                     aria-label="Top products"
-                    className="[&_th]:py-3 [&_td]:py-3 [&_td]:text-sm [&_th]:text-xs"
                   >
                     <TableHeader>
                       <TableColumn>PRODUCT</TableColumn>
