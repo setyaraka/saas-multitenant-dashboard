@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
-import { Divider } from "@heroui/divider";
 
 import SettingsNav from "./setting-nav";
 import AppearanceSettings, { AppearanceValues } from "./appearance";
@@ -11,6 +10,12 @@ import { Invoice } from "./invoice-table";
 import ThirdPartySection, { ThirdPartyValues } from "./third-party";
 import AuthenticationSection, { AuthValues } from "./authentication";
 import RoleMatrixSection, { RoleMatrix, SCOPES } from "./role-matrix";
+import Localization, { LocaleValues } from "./localization";
+import DataRetentionSection, { DataRetentionValues } from "./data-retention";
+import ApiKeysSection, { ApiKeysValues } from "./api-key";
+import ProfileSection, { ProfileValues } from "./profile";
+import NotificationsSection, { NotificationsValues } from "./notifications";
+import AccessibilitySection, { AccessibilityValues } from "./accessibility";
 
 import DefaultLayout from "@/layouts/default";
 
@@ -123,67 +128,133 @@ export default function SettingsPage() {
 
   const [matrix, setMatrix] = useState<RoleMatrix>(DEFAULT_MATRIX);
 
+  const [locale, setLocale] = useState<LocaleValues>({
+    language: "id-ID",
+    timezone: "Asia/Jakarta",
+    currency: "IDR",
+  });
+
+  const [retention, setRetention] = useState<DataRetentionValues>({
+    retentionDays: 90,
+  });
+
+  const [apiKeys] = useState<ApiKeysValues>({
+    publicKey: "pub_abcdefghijklmnop",
+    secretKey: "sec_qrstuvwxyz123456",
+  });
+
+  const [profile, setProfile] = useState<ProfileValues>({
+    fullName: "",
+    email: "",
+  });
+
+  const [notif, setNotif] = useState<NotificationsValues>({
+    orderCreatedEmail: true,
+    invoiceIssuedEmail: false,
+  });
+
+  const [a11y, setA11y] = useState<AccessibilityValues>({
+    reduceMotion: false,
+    fontSize: "normal",
+  });
+
   const renderSection = () => {
-    switch (section) {
-      case "appearance":
-        return (
-          <AppearanceSettings
-            values={appearance}
-            onChange={(patch) =>
-              setAppearance((prev) => ({ ...prev, ...patch }))
-            }
-          />
-        );
-      case "domain":
-        return (
-          <CustomDomainCard
-            values={domainCfg}
-            onChange={(patch) =>
-              setDomainCfg((prev) => ({ ...prev, ...patch }))
-            }
-          />
-        );
-      case "billing":
-        return (
-          <BillingSection
-            invoices={INVOICES}
-            values={billing}
-            onUpdateCard={() =>
-              setBilling(() => ({ planName: "Pro", priceLabel: "$49 / month" }))
-            }
-          />
-        );
-      case "integrations":
-        return (
-          <ThirdPartySection
-            values={third}
-            onChange={(patch) => setThird((prev) => ({ ...prev, ...patch }))}
-          />
-        );
-      case "sso":
-        return (
-          <AuthenticationSection
-            values={auth}
-            onChange={(patch) => setAuth((prev) => ({ ...prev, ...patch }))}
-          />
-        );
-      case "roles":
-        return <RoleMatrixSection values={matrix} onChange={setMatrix} />;
-      default:
-        return (
-          <Card className="border">
-            <CardBody className="text-sm text-gray-600">
-              <p className="font-medium mb-1 capitalize">
-                {section.replace("/", " ")}
-              </p>
-              <Divider className="my-3" />
-              <p>
-                Belum ada pengaturan di bagian ini. Pilih {`"Appearance"`} atau
-                {`"Domain"`}.
-              </p>
-            </CardBody>
-          </Card>
-        );
+    if (section === "appearance") {
+      return (
+        <AppearanceSettings
+          values={appearance}
+          onChange={(patch) => setAppearance((prev) => ({ ...prev, ...patch }))}
+        />
+      );
+    }
+    if (section === "domain") {
+      return (
+        <CustomDomainCard
+          values={domainCfg}
+          onChange={(patch) => setDomainCfg((prev) => ({ ...prev, ...patch }))}
+        />
+      );
+    }
+    if (section === "billing") {
+      return (
+        <BillingSection
+          invoices={INVOICES}
+          values={billing}
+          onUpdateCard={() =>
+            setBilling(() => ({ planName: "Pro", priceLabel: "$49 / month" }))
+          }
+        />
+      );
+    }
+    if (section === "integrations") {
+      return (
+        <ThirdPartySection
+          values={third}
+          onChange={(patch) => setThird((prev) => ({ ...prev, ...patch }))}
+        />
+      );
+    }
+    if (section === "sso") {
+      return (
+        <AuthenticationSection
+          values={auth}
+          onChange={(patch) => setAuth((prev) => ({ ...prev, ...patch }))}
+        />
+      );
+    }
+    if (section === "roles") {
+      return <RoleMatrixSection values={matrix} onChange={setMatrix} />;
+    }
+    if (section === "localization") {
+      return (
+        <Localization
+          values={locale}
+          onChange={(patch) => setLocale((prev) => ({ ...prev, ...patch }))}
+        />
+      );
+    }
+    if (section === "compliance") {
+      return (
+        <DataRetentionSection
+          values={retention}
+          onChange={(patch) => setRetention((prev) => ({ ...prev, ...patch }))}
+          onExportJSON={() => {
+            alert(`Exporting last ${retention.retentionDays} days as JSON`);
+          }}
+        />
+      );
+    }
+    if (section === "api") {
+      return (
+        <ApiKeysSection
+          values={apiKeys}
+          onRotateSecret={() => alert("Rotate secret key…")}
+        />
+      );
+    }
+    if (section === "profile") {
+      return (
+        <ProfileSection
+          values={profile}
+          onChange={(patch) => setProfile((p) => ({ ...p, ...patch }))}
+        />
+      );
+    }
+    if (section === "notifications") {
+      return (
+        <NotificationsSection
+          values={notif}
+          onChange={(value) => setNotif((prev) => ({ ...prev, ...value }))}
+        />
+      );
+    }
+    if (section === "accessibility") {
+      return (
+        <AccessibilitySection
+          values={a11y}
+          onChange={(p) => setA11y((prev) => ({ ...prev, ...p }))}
+        />
+      );
     }
   };
 
