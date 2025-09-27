@@ -364,10 +364,7 @@ export default function AnalyticsPage() {
                   Top products
                 </CardHeader>
                 <CardBody>
-                  <Table
-                    removeWrapper
-                    aria-label="Top products"
-                  >
+                  <Table removeWrapper aria-label="Top products">
                     <TableHeader>
                       <TableColumn>PRODUCT</TableColumn>
                       <TableColumn>ORDERS</TableColumn>
