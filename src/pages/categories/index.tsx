@@ -49,10 +49,8 @@ export default function CategoriesPage() {
         <BreadcrumbItem>Categories</BreadcrumbItem>
       </Breadcrumbs>
       <Card>
-        <CardHeader className="flex-col items-start gap-1">
-          <div className="flex items-center gap-2">
-            <p className="font-bold text-xl">Categories</p>
-          </div>
+        <CardHeader>
+          <p className="font-bold text-xl">Categories</p>
         </CardHeader>
 
         <CardBody>
