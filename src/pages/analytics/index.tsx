@@ -214,7 +214,7 @@ export default function AnalyticsPage() {
 
   return (
     <DefaultLayout>
-      <Breadcrumbs>
+      <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Analytics</BreadcrumbItem>
       </Breadcrumbs>

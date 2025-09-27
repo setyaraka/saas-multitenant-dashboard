@@ -11,8 +11,9 @@ import SettingsPage from "./pages/settings";
 import AnalyticsPage from "./pages/analytics";
 import AuditLogPage from "./pages/audit-log";
 
-import BlogPage from "@/pages/blog";
+// import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
+import KitchenDisplayPage from "./pages/operations/kitchen-display";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route element={<AnalyticsPage />} path="/analytics" />
       <Route element={<CategoriesPage />} path="/catalog/categories" />
       <Route element={<ModifiersPage />} path="/catalog/modifier" />
-      <Route element={<BlogPage />} path="/operations/kitchen-display" />
+      <Route element={<KitchenDisplayPage />} path="/operations/kitchen-display" />
       <Route element={<AboutPage />} path="/operations/shift" />
       <Route element={<UsersPage />} path="/users-and-role/users" />
       <Route element={<RolesPage />} path="/users-and-role/role" />
