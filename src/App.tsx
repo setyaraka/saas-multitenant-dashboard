@@ -8,6 +8,7 @@ import RolesPage from "./pages/role";
 import CategoriesPage from "./pages/categories";
 import ModifiersPage from "./pages/modifiers";
 import SettingsPage from "./pages/settings";
+import AnalyticsPage from "./pages/analytics";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
@@ -18,7 +19,7 @@ function App() {
       <Route element={<OverviewPage />} path="/" />
       <Route element={<OrdersPage />} path="/orders" />
       <Route element={<MenuPage />} path="/menu" />
-      <Route element={<BlogPage />} path="/analytics" />
+      <Route element={<AnalyticsPage />} path="/analytics" />
       <Route element={<CategoriesPage />} path="/catalog/categories" />
       <Route element={<ModifiersPage />} path="/catalog/modifier" />
       <Route element={<BlogPage />} path="/operations/kitchen-display" />
