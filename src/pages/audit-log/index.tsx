@@ -116,7 +116,7 @@ function ResultChip({ value }: { value: Result }) {
   }[value];
 
   return (
-    <Chip color={map.color} size="sm" variant="flat">
+    <Chip color={map.color} variant="flat">
       {map.label}
     </Chip>
   );
@@ -224,7 +224,6 @@ export default function AuditLogPage() {
           <div className="mb-3 grid grid-cols-1 gap-3 md:grid-cols-[260px_220px_200px_1fr_auto]">
             <DateRangePicker
               aria-label="Date range"
-              size="sm"
               onChange={(v) =>
                 setRange({
                   start: v?.start ? dayjs(v.start.toString()) : null,
@@ -236,7 +235,6 @@ export default function AuditLogPage() {
             <Select
               aria-label="Action"
               selectedKeys={[actionFilter]}
-              size="sm"
               onSelectionChange={(keys) =>
                 setActionFilter(Array.from(keys)[0] as "all" | Action)
               }
@@ -252,7 +250,6 @@ export default function AuditLogPage() {
             <Select
               aria-label="Result"
               selectedKeys={[resultFilter]}
-              size="sm"
               onSelectionChange={(keys) =>
                 setResultFilter(Array.from(keys)[0] as "all" | Result)
               }
@@ -265,12 +262,11 @@ export default function AuditLogPage() {
 
             <Input
               placeholder="actor, resource, IP, correlation…"
-              size="sm"
               value={q}
               onValueChange={setQ}
             />
 
-            <Button color="primary" size="sm" onPress={exportCsv}>
+            <Button color="primary" onPress={exportCsv}>
               Export CSV
             </Button>
           </div>
@@ -334,11 +330,7 @@ export default function AuditLogPage() {
                     </TableCell>
 
                     <TableCell>
-                      <Button
-                        size="sm"
-                        variant="flat"
-                        onPress={() => openDetail(log)}
-                      >
+                      <Button variant="flat" onPress={() => openDetail(log)}>
                         Detail
                       </Button>
                     </TableCell>
@@ -363,7 +355,6 @@ export default function AuditLogPage() {
       <Modal
         isOpen={open}
         scrollBehavior="inside"
-        size="lg"
         onOpenChange={setOpen}
       >
         <ModalContent>

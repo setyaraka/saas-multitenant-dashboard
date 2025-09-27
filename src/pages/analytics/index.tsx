@@ -221,13 +221,12 @@ export default function AnalyticsPage() {
 
       <Card>
         <CardHeader>
+          <p className="font-bold text-xl">Analytics</p>
+        </CardHeader>
+        <CardBody>
           <Row>
-            <Col>
-              <span className="font-semibold">Analytics</span>
-            </Col>
-            <Col className="flex gap-4">
+            <Col className="flex gap-2" xs={10}>
               <DateRangePicker
-                size="md"
                 onChange={(v) =>
                   setRange({
                     start: v?.start ? dayjs(v.start.toString()) : null,
@@ -237,7 +236,6 @@ export default function AnalyticsPage() {
               />
               <Select
                 selectedKeys={[granularity]}
-                size="md"
                 onChange={(e) =>
                   setGranularity((e.target.value as any) || "day")
                 }
@@ -248,17 +246,14 @@ export default function AnalyticsPage() {
               </Select>
               <Input
                 placeholder="Find product / order…"
-                size="md"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button color="primary" size="md">
-                Export CSV
-              </Button>
+            </Col>
+            <Col className="text-end" xs={2}>
+              <Button color="primary">Export CSV</Button>
             </Col>
           </Row>
-        </CardHeader>
-        <CardBody>
           <Tabs aria-label="analytics-tabs" className="mt-2">
             <Tab key="charts" title="Charts">
               <div className="space-y-6">
