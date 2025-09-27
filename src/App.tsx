@@ -9,6 +9,7 @@ import CategoriesPage from "./pages/categories";
 import ModifiersPage from "./pages/modifiers";
 import SettingsPage from "./pages/settings";
 import AnalyticsPage from "./pages/analytics";
+import AuditLogPage from "./pages/audit-log";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
@@ -27,7 +28,7 @@ function App() {
       <Route element={<UsersPage />} path="/users-and-role/users" />
       <Route element={<RolesPage />} path="/users-and-role/role" />
       <Route element={<SettingsPage />} path="settings" />
-      <Route element={<AboutPage />} path="audit-log" />
+      <Route element={<AuditLogPage />} path="audit-log" />
     </Routes>
   );
 }
