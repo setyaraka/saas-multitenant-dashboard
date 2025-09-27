@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
 import SettingsNav from "./setting-nav";
 import AppearanceSettings, { AppearanceValues } from "./appearance";
@@ -260,6 +261,10 @@ export default function SettingsPage() {
 
   return (
     <DefaultLayout>
+      <Breadcrumbs className="mb-5" size="lg">
+        <BreadcrumbItem>Home</BreadcrumbItem>
+        <BreadcrumbItem>Settings</BreadcrumbItem>
+      </Breadcrumbs>
       <Card>
         <CardHeader className="flex items-center gap-2">
           <p className="font-bold text-xl mt-2 ml-2">Settings</p>
