@@ -69,7 +69,7 @@ export default function Sidebar() {
   );
 
   return (
-    <div className="w-81 h-screen bg-white p-4 shadow-md border-r border-gray-200">
+    <div className="w-70 pt-5 h-max-screen bg-white border border-gray-200">
       <Row className="my-2">
         <Col className="pr-3" xs={3}>
           <span className="ml-auto w-9 h-9 bg-gray-400 rounded-xl flex items-center justify-center text-white font-semibold">

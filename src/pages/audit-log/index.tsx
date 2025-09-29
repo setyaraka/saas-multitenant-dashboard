@@ -211,7 +211,7 @@ export default function AuditLogPage() {
   };
 
   return (
-    <>
+    <div className="h-screen">
       <Breadcrumbs className="mb-4" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Audit log</BreadcrumbItem>
@@ -397,6 +397,6 @@ export default function AuditLogPage() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

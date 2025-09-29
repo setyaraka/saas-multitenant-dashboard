@@ -5,7 +5,7 @@ import StatCard from "@/components/card/stat-card";
 
 export default function OverviewPage() {
   return (
-    <div className="h-screen">
+    <>
       <Card>
         <CardHeader className="flex-col items-start gap-1">
           <div className="flex items-center gap-2">
@@ -30,6 +30,6 @@ export default function OverviewPage() {
           </div>
         </CardBody>
       </Card>
-    </div>
+    </>
   );
 }
