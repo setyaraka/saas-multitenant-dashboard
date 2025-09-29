@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useAuth } from "@/store/auth";
-import { api } from "@/lib/auth";
+import { api } from "@/lib/api";
 
 export function useSettings() {
   const tenantId = useAuth((s) => s.tenantId);
