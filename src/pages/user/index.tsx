@@ -14,7 +14,6 @@ import { Select, SelectItem } from "@heroui/select";
 import { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 
 type User = {
@@ -160,7 +159,7 @@ export default function UsersPage() {
   const isFilterActive = query !== "" || role !== "all" || status !== "all";
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Users & Roles</BreadcrumbItem>
@@ -271,6 +270,6 @@ export default function UsersPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

@@ -14,7 +14,6 @@ import { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
 import TableFooter from "@/components/table-footer";
-import DefaultLayout from "@/layouts/default";
 
 type RoleRow = {
   role: string;
@@ -74,7 +73,7 @@ export default function RolesPage() {
   const slice = filtered.slice(start, start + rowsPerPage);
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Users & Roles</BreadcrumbItem>
@@ -146,6 +145,6 @@ export default function RolesPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

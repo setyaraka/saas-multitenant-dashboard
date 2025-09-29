@@ -16,7 +16,6 @@ import { DateRangePicker } from "@heroui/date-picker";
 import dayjs, { Dayjs } from "dayjs";
 
 import StatusChip from "@/components/status-chip";
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 
 type Order = {
@@ -173,7 +172,7 @@ export default function OrdersPage() {
     query !== "" || customerName !== "" || status !== "all";
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Order</BreadcrumbItem>
@@ -276,6 +275,6 @@ export default function OrdersPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

@@ -17,7 +17,6 @@ import { Chip } from "@heroui/chip";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/modal";
 import { Dayjs } from "dayjs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 import dayjs from "@/lib/dayjs";
 
@@ -212,7 +211,7 @@ export default function AuditLogPage() {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-4" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Audit log</BreadcrumbItem>
@@ -352,11 +351,7 @@ export default function AuditLogPage() {
         </CardBody>
       </Card>
 
-      <Modal
-        isOpen={open}
-        scrollBehavior="inside"
-        onOpenChange={setOpen}
-      >
+      <Modal isOpen={open} scrollBehavior="inside" onOpenChange={setOpen}>
         <ModalContent>
           <ModalHeader className="text-base font-semibold">
             Log detail
@@ -402,6 +397,6 @@ export default function AuditLogPage() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </DefaultLayout>
+    </>
   );
 }

@@ -13,7 +13,6 @@ import { Chip } from "@heroui/chip";
 import { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 
 type Modifier = {
@@ -76,7 +75,7 @@ export default function ModifiersPage() {
   }, [query]);
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Catalog</BreadcrumbItem>
@@ -143,6 +142,6 @@ export default function ModifiersPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

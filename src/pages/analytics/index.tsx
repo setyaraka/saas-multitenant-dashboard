@@ -28,7 +28,6 @@ import {
 } from "@heroui/table";
 import { Dayjs } from "dayjs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 import dayjs from "@/lib/dayjs";
 import Row from "@/components/layout/row";
@@ -213,7 +212,7 @@ export default function AnalyticsPage() {
   const money = (n: number) => `$${n.toFixed(2)}`;
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs>
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Analytics</BreadcrumbItem>
@@ -392,6 +391,6 @@ export default function AnalyticsPage() {
           </Tabs>
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

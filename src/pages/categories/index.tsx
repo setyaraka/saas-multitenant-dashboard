@@ -12,7 +12,6 @@ import { Card, CardHeader, CardBody } from "@heroui/card";
 import { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 
 type Category = {
@@ -42,7 +41,7 @@ export default function CategoriesPage() {
   }, [query]);
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Catalog</BreadcrumbItem>
@@ -97,6 +96,6 @@ export default function CategoriesPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

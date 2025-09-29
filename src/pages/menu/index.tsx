@@ -14,7 +14,6 @@ import { Chip } from "@heroui/chip";
 import React, { useMemo, useState } from "react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
-import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
 
 type MenuItem = {
@@ -186,7 +185,7 @@ export default function MenuPage() {
     tagKeys !== new Set();
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Menu</BreadcrumbItem>
@@ -341,6 +340,6 @@ export default function MenuPage() {
           />
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }

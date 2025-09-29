@@ -18,8 +18,6 @@ import ProfileSection, { ProfileValues } from "./profile";
 import NotificationsSection, { NotificationsValues } from "./notifications";
 import AccessibilitySection, { AccessibilityValues } from "./accessibility";
 
-import DefaultLayout from "@/layouts/default";
-
 type SectionKey =
   | "appearance"
   | "domain"
@@ -260,7 +258,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <Breadcrumbs className="mb-5" size="lg">
         <BreadcrumbItem>Home</BreadcrumbItem>
         <BreadcrumbItem>Settings</BreadcrumbItem>
@@ -285,6 +283,6 @@ export default function SettingsPage() {
           </div>
         </CardBody>
       </Card>
-    </DefaultLayout>
+    </>
   );
 }
