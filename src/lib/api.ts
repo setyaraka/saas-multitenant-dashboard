@@ -1,8 +1,5 @@
+import { API_BASE } from "@/config";
 import { useAuth } from "@/store/auth";
-
-const BASE = (import.meta.env.VITE_API_URL as string) ?? "";
-const buildUrl = (path: string) =>
-  `${BASE.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 
 export type RequestInitExt = RequestInit & {
   tenantScoped?: boolean;
@@ -10,13 +7,16 @@ export type RequestInitExt = RequestInit & {
 
 export class ApiError extends Error {
   status: number;
-  info?: any;
-  constructor(message: string, status: number, info?: any) {
+  data?: any;
+  constructor(message: string, status: number, data?: any) {
     super(message);
     this.status = status;
-    this.info = info;
+    this.data = data;
   }
 }
+
+const buildUrl = (path: string) =>
+    `${API_BASE.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 
 export async function request<T = any>(
   path: string,
@@ -29,43 +29,40 @@ export async function request<T = any>(
 
   const token = tenantScoped ? tenantToken || userToken : userToken;
 
-  const hdr: Record<string, string> = {
+  const headers: Record<string, string> = {
     ...(init.headers as Record<string, string>),
   };
 
-  if (token) hdr.Authorization = `Bearer ${token}`;
-  if (tenantScoped && tenantId) hdr["X-Tenant-Id"] = tenantId;
+  if (token) headers.Authorization = `Bearer ${token}`;
+  if (tenantScoped && tenantId) headers["X-Tenant-Id"] = tenantId;
+
+  const isForm = typeof FormData !== "undefined" && init.body instanceof FormData;
+  const isBlob = typeof Blob !== "undefined" && init.body instanceof Blob;
 
   const bodyIsPlainObject =
     init.body &&
     typeof init.body === "object" &&
-    !(init.body instanceof FormData) &&
-    !(init.body instanceof Blob);
+    !isForm &&
+    !isBlob;
 
   const res = await fetch(url, {
     ...init,
     headers: bodyIsPlainObject
-      ? { "Content-Type": "application/json", ...hdr }
-      : hdr,
+      ? { "Content-Type": "application/json", ...headers }
+      : headers,
     body: bodyIsPlainObject ? JSON.stringify(init.body) : init.body,
   });
 
+  const contentType = res.headers.get("content-type") || "";
+  const isJson = contentType.includes("application/json");
+  const data = isJson ? await res.json().catch(() => undefined) : await res.text();
+
   if (!res.ok) {
-    let info: any = undefined;
-
-    try {
-      info = await res.json();
-    } catch {
-      // ignore
-    }
-    const msg =
-      info?.message || info?.error || res.statusText || "Request error";
-
-    throw new ApiError(msg, res.status, info);
+    const message =
+      (isJson && (data?.message || data?.error)) ||
+      `Request failed: ${res.status}`;
+    throw new ApiError(message, res.status, data);
   }
 
-  if (res.status === 204) return undefined as T;
-  const text = await res.text();
-
-  return (text ? JSON.parse(text) : undefined) as T;
+  return data as T;
 }
