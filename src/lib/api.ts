@@ -1,10 +1,6 @@
 import { API_BASE } from "@/config";
 import { useAuth } from "@/store/auth";
 
-// export type RequestInitExt = RequestInit & {
-//   tenantScoped?: boolean;
-//   body?: object | null;
-// };
 export type RequestInitExt = Omit<RequestInit, "body"> & {
   tenantScoped?: boolean;
   body?: BodyInit | object | null;
