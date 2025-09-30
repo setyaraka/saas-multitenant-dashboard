@@ -352,11 +352,7 @@ export default function AuditLogPage() {
         </CardBody>
       </Card>
 
-      <Modal
-        isOpen={open}
-        scrollBehavior="inside"
-        onOpenChange={setOpen}
-      >
+      <Modal isOpen={open} scrollBehavior="inside" onOpenChange={setOpen}>
         <ModalContent>
           <ModalHeader className="text-base font-semibold">
             Log detail
