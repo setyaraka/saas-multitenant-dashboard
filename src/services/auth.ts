@@ -13,7 +13,7 @@ export const AuthApi = {
     return request<LoginResp>("/auth/login", {
       method: "POST",
       body,
-      tenantScoped: false, 
+      tenantScoped: false,
     });
   },
   me() {
