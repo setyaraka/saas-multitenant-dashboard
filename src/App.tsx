@@ -10,6 +10,7 @@ import ModifiersPage from "./pages/modifiers";
 import SettingsPage from "./pages/settings";
 import AnalyticsPage from "./pages/analytics";
 import AuditLogPage from "./pages/audit-log";
+import LoginPage from "./pages/login";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
@@ -17,6 +18,7 @@ import AboutPage from "@/pages/about";
 function App() {
   return (
     <Routes>
+      <Route element={<LoginPage />} path="/login" />
       <Route element={<OverviewPage />} path="/" />
       <Route element={<OrdersPage />} path="/orders" />
       <Route element={<MenuPage />} path="/menu" />
