@@ -21,7 +21,12 @@ export default function LoginPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login.mutate({ email, password }, { onSuccess: () => navigate("/") });
+    login.mutate(
+      { email, password },
+      {
+        onSuccess: () => navigate("/"),
+      },
+    );
   };
 
   return (

@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthApi } from "@/services/auth";
 import { useAuth } from "@/store/auth";
 import { queryKey } from "@/lib/keys";
+import { setLastUsedTenant } from "@/lib/tenant-resolver";
 
 export function useMe() {
   return useQuery({
@@ -53,6 +54,7 @@ export function useAssumeTenant() {
     mutationFn: AuthApi.assumeTenantById,
     onSuccess: async (res, variables) => {
       setTenant({ tenantId: variables.tenantId, token: res.access_token });
+      setLastUsedTenant(variables.tenantId);
       await Promise.all([qc.invalidateQueries()]);
     },
   });
