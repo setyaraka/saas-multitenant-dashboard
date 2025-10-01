@@ -31,10 +31,7 @@ function App() {
           <Route element={<AnalyticsPage />} path="/analytics" />
           <Route element={<CategoriesPage />} path="/catalog/categories" />
           <Route element={<ModifiersPage />} path="/catalog/modifier" />
-          <Route
-            element={<BlogPage />}
-            path="/operations/kitchen-display"
-          />
+          <Route element={<BlogPage />} path="/operations/kitchen-display" />
           <Route element={<AboutPage />} path="/operations/shift" />
           <Route element={<UsersPage />} path="/users-and-role/users" />
           <Route element={<RolesPage />} path="/users-and-role/role" />
