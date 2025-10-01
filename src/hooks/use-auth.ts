@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthApi } from "@/services/auth";
 import { useAuth } from "@/store/auth";
 import { queryKey } from "@/lib/keys";
+import { TenantsApi } from "@/services/tenant";
 
 export function useMe() {
   return useQuery({
@@ -48,12 +49,34 @@ export function useLogin() {
 export function useAssumeTenant() {
   const qc = useQueryClient();
   const setTenant = useAuth((s) => s.setTenant);
+  const setPermissions = useAuth((s) => s.setPermissions);
+
+  const warmupCapabilities = async (tenantId: string) => {
+    const caps = await qc.fetchQuery({
+      queryKey: queryKey.tenantCapabilities(tenantId),
+      queryFn: () => TenantsApi.getCapabilities(tenantId),
+    });
+
+    setPermissions(caps.permissions ?? []);
+
+    return caps;
+  };
 
   return useMutation({
     mutationFn: AuthApi.assumeTenantById,
-    onSuccess: async (res, variables) => {
-      setTenant({ tenantId: variables.tenantId, token: res.access_token });
-      await Promise.all([qc.invalidateQueries()]);
+    onMutate: async (vars) => {
+      setPermissions([]);
+      await qc.cancelQueries();
+
+      return vars;
+    },
+    onSuccess: async (res, vars) => {
+      setTenant({ tenantId: vars.tenantId, token: res.access_token });
+      await warmupCapabilities(vars.tenantId);
+      await qc.invalidateQueries();
+    },
+    onError: async () => {
+      setPermissions([]);
     },
   });
 }

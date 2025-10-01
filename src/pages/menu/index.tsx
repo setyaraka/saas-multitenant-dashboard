@@ -8,7 +8,6 @@ import {
 } from "@heroui/table";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
-import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import React, { useMemo, useState } from "react";
@@ -16,6 +15,7 @@ import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
 import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
+import AccentButton from "@/components/ui/Button";
 
 type MenuItem = {
   sku: string;
@@ -273,19 +273,16 @@ export default function MenuPage() {
             </Select>
 
             <div className="ml-auto flex items-center gap-2">
-              <Button
+              <AccentButton
                 isDisabled={!isFilterActive}
                 variant="flat"
                 onPress={resetFilters}
               >
-                Reset
-              </Button>
-              <Button
-                color="primary"
-                onPress={() => alert("Add Item clicked!")}
-              >
+                Save changes
+              </AccentButton>
+              <AccentButton onPress={() => alert("Add Item clicked!")}>
                 Add Item
-              </Button>
+              </AccentButton>
             </div>
           </div>
 

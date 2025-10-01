@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
@@ -19,6 +19,20 @@ import NotificationsSection, { NotificationsValues } from "./notifications";
 import AccessibilitySection, { AccessibilityValues } from "./accessibility";
 
 import DefaultLayout from "@/layouts/default";
+import {
+  useTenantSettings,
+  useUpdateAppearance,
+  useUpdateDomain,
+  useUpdateLocalization,
+  useUploadLogo,
+} from "@/hooks/use-tenant-setting";
+import {
+  serverDensityToUi,
+  serverModeToUi,
+  uiDensityToServer,
+  uiModeToServer,
+} from "@/lib/appearance-adapter";
+import AccentButton from "@/components/ui/Button";
 
 type SectionKey =
   | "appearance"
@@ -159,6 +173,41 @@ export default function SettingsPage() {
     fontSize: "normal",
   });
 
+  const mutApp = useUpdateAppearance();
+  const mutLoc = useUpdateLocalization();
+  const mutDom = useUpdateDomain();
+  const mutLogo = useUploadLogo();
+  const { data: settings } = useTenantSettings();
+
+  const logoFileRef = useRef<File | null>(null);
+
+  useEffect(() => {
+    if (!settings) return;
+
+    setAppearance(() => ({
+      brandName: settings.appearance.brandName ?? "",
+      primary: settings.appearance.primaryColor ?? "#0ea5e9",
+      accent: settings.appearance.accent ?? "#f59e0b",
+      logoFileName: "",
+      mode: serverModeToUi(settings.appearance.mode),
+      density: serverDensityToUi(settings.appearance.density),
+    }));
+
+    // setDomainCfg((prev) => ({
+    //   ...prev,
+    //   domain: settings.domain?.domain ?? "",
+    //   dnsStatus: settings.domain?.status ?? "not_verified",
+    //   autoTLS: settings.domain?.autoHttps ?? true,
+    //   // cnameHost/cnameTarget tetap dummy di FE (tidak dari BE)
+    // }));
+
+    // setLocale((prev) => ({
+    //   language: settings.localization.locale ?? "id-ID",
+    //   currency: settings.localization.currency ?? "IDR",
+    //   timezone: settings.localization.timezone ?? "Asia/Jakarta",
+    // }));
+  }, [settings]);
+
   const renderSection = () => {
     if (section === "appearance") {
       return (
@@ -259,6 +308,55 @@ export default function SettingsPage() {
     }
   };
 
+  async function handleSave() {
+    try {
+      if (section === "appearance") {
+        await mutApp.mutateAsync({
+          brandName: appearance.brandName || undefined,
+          primaryColor: appearance.primary,
+          accent: appearance.accent,
+          mode: uiModeToServer(appearance.mode),
+          density: uiDensityToServer(appearance.density),
+        });
+
+        if (logoFileRef.current) {
+          await mutLogo.mutateAsync(logoFileRef.current);
+          logoFileRef.current = null;
+          setAppearance((p) => ({ ...p, logoFileName: "" }));
+        }
+
+        alert("Appearance saved");
+
+        return;
+      }
+
+      if (section === "localization") {
+        await mutLoc.mutateAsync({
+          language: locale.language,
+          currency: locale.currency,
+          timezone: locale.timezone,
+        });
+        alert("Localization saved");
+
+        return;
+      }
+
+      if (section === "domain") {
+        await mutDom.mutateAsync({
+          domain: domainCfg.domain || undefined,
+          autoHttps: domainCfg.autoTLS,
+        });
+        alert("Domain saved");
+
+        return;
+      }
+
+      alert("Bagian ini belum terhubung ke API (di luar Epic 4).");
+    } catch (e: any) {
+      alert(e?.message ?? "Gagal menyimpan");
+    }
+  }
+
   return (
     <DefaultLayout>
       <Breadcrumbs className="mb-5" size="lg">
@@ -279,9 +377,9 @@ export default function SettingsPage() {
 
           <div className="mt-6 flex justify-end gap-2">
             <Button variant="flat">Cancel</Button>
-            <Button color="primary" onPress={() => alert("Saved!")}>
-              Save changes
-            </Button>
+            <AccentButton variant="flat" onPress={handleSave}>
+              Save Changes
+            </AccentButton>
           </div>
         </CardBody>
       </Card>

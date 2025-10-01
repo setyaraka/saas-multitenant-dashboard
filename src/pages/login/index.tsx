@@ -6,7 +6,7 @@ import { Checkbox } from "@heroui/checkbox";
 import { Link } from "@heroui/link";
 import { useNavigate } from "react-router-dom";
 
-import { useLogin } from "@/components/hooks/use-auth";
+import { useLogin } from "@/hooks/use-auth";
 import { EyeIcon, EyeOffIcon } from "@/components/icons";
 
 export default function LoginPage() {
@@ -21,7 +21,12 @@ export default function LoginPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login.mutate({ email, password }, { onSuccess: () => navigate("/") });
+    login.mutate(
+      { email, password },
+      {
+        onSuccess: () => navigate("/"),
+      },
+    );
   };
 
   return (

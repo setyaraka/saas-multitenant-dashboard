@@ -1,6 +1,35 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      try {
+        var raw = localStorage.getItem('tenant-theme');
+        if (raw) {
+          var t = JSON.parse(raw);
+          var root = document.documentElement;
+          var primary = t.primary || '#0ea5e9';
+          var accent  = t.accent  || '#f59e0b';
+    
+          // SET SEMUA VARIABEL YANG DIPAKAI TAILWIND/HERoUI
+          root.style.setProperty('--color-brand', primary);
+          root.style.setProperty('--color-accent', accent);
+    
+          // kalau Tailwind kamu pakai rgb triplet:
+          function hexToRgbTuple(hex){var m=hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);return m?[parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)]:null}
+          var p = hexToRgbTuple(primary) || [14,165,233];
+          var a = hexToRgbTuple(accent)  || [245,158,11];
+    
+          root.style.setProperty('--brand-rgb',  p.join(' '));
+          root.style.setProperty('--accent-rgb', a.join(' '));
+          root.style.setProperty('--ring-brand', p.join(' '));
+    
+          // kontras teks
+          function contrastOn(hex){var m=hexToRgbTuple(hex),r=m?m[0]:0,g=m?m[1]:0,b=m?m[2]:0,yiq=(r*299+g*587+b*114)/1000;return yiq>=140?'#000000':'#ffffff'}
+          root.style.setProperty('--color-brand-foreground',  contrastOn(primary));
+          root.style.setProperty('--color-accent-foreground', contrastOn(accent));
+        }
+      } catch (e) {}
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
