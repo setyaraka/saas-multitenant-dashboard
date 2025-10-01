@@ -11,10 +11,10 @@ import SettingsPage from "./pages/settings";
 import AnalyticsPage from "./pages/analytics";
 import AuditLogPage from "./pages/audit-log";
 import LoginPage from "./pages/login";
+import Protected from "./routes/protected";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
-import Protected from "./routes/protected";
 
 function App() {
   return (
