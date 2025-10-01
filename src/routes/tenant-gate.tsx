@@ -61,10 +61,10 @@ function ResolveTenant() {
       <div className="min-h-[40vh] grid place-items-center text-center p-6">
         <div>
           <div className="text-lg font-medium mb-2">
-            Akunmu belum memiliki tenant
+            Your account does not have any tenants yet
           </div>
           <p className="text-sm text-gray-600">
-            Hubungi admin untuk ditambahkan ke sebuah tenant.
+            Contact admin to be added to a tenant.
           </p>
         </div>
       </div>
@@ -73,7 +73,7 @@ function ResolveTenant() {
 
   return (
     <div className="max-w-lg mx-auto p-6 space-y-4">
-      <h1 className="text-xl font-semibold">Pilih Tenant</h1>
+      <h1 className="text-xl font-semibold">Select Tenant</h1>
       <div className="grid gap-2">
         {data.map((t) => (
           <button
@@ -89,7 +89,7 @@ function ResolveTenant() {
       </div>
       {assume.isError && (
         <div className="text-sm text-red-600">
-          Gagal mengatur tenant. Coba pilih lagi.
+          Failed to set tenant. Try selecting again.
         </div>
       )}
     </div>

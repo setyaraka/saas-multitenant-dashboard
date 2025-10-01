@@ -11,9 +11,9 @@ export default function CapabilitiesGate() {
   const tenantToken = useAuth((s) => s.tenantToken);
   const tenantId = useTenantId();
 
-  if (!userToken || !tenantToken || !tenantId) return <Outlet />;
-
   const { isLoading, isError, refetch } = useTenantCapabilities();
+
+  if (!userToken || !tenantToken || !tenantId) return <Outlet />;
 
   if (isLoading) {
     return (
