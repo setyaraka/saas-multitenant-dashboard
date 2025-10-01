@@ -14,9 +14,11 @@ import LoginPage from "./pages/login";
 import Protected from "./routes/protected";
 import TenantSelectPage from "./pages/tenant-select";
 import TenantGate from "./routes/tenant-gate";
+import CapabilitiesGate from "./routes/capabilities-gate";
 
 import BlogPage from "@/pages/blog";
 import AboutPage from "@/pages/about";
+import PrivateShell from "./routes/private-shell";
 
 function App() {
   return (
@@ -24,19 +26,23 @@ function App() {
       <Route element={<LoginPage />} path="/login" />
       <Route element={<Protected />}>
         <Route element={<TenantGate />}>
-          <Route element={<OverviewPage />} path="/" />
-          <Route element={<OverviewPage />} path="/" />
-          <Route element={<OrdersPage />} path="/orders" />
-          <Route element={<MenuPage />} path="/menu" />
-          <Route element={<AnalyticsPage />} path="/analytics" />
-          <Route element={<CategoriesPage />} path="/catalog/categories" />
-          <Route element={<ModifiersPage />} path="/catalog/modifier" />
-          <Route element={<BlogPage />} path="/operations/kitchen-display" />
-          <Route element={<AboutPage />} path="/operations/shift" />
-          <Route element={<UsersPage />} path="/users-and-role/users" />
-          <Route element={<RolesPage />} path="/users-and-role/role" />
-          <Route element={<SettingsPage />} path="settings" />
-          <Route element={<AuditLogPage />} path="audit-log" />
+          <Route element={<CapabilitiesGate />}>
+            <Route element={<PrivateShell />}>
+              <Route element={<OverviewPage />} path="/" />
+              <Route element={<OverviewPage />} path="/" />
+              <Route element={<OrdersPage />} path="/orders" />
+              <Route element={<MenuPage />} path="/menu" />
+              <Route element={<AnalyticsPage />} path="/analytics" />
+              <Route element={<CategoriesPage />} path="/catalog/categories" />
+              <Route element={<ModifiersPage />} path="/catalog/modifier" />
+              <Route element={<BlogPage />} path="/operations/kitchen-display" />
+              <Route element={<AboutPage />} path="/operations/shift" />
+              <Route element={<UsersPage />} path="/users-and-role/users" />
+              <Route element={<RolesPage />} path="/users-and-role/role" />
+              <Route element={<SettingsPage />} path="settings" />
+              <Route element={<AuditLogPage />} path="audit-log" />
+            </Route>
+          </Route>
         </Route>
         <Route element={<TenantSelectPage />} path="/tenant-select" />
       </Route>

@@ -71,7 +71,6 @@ function ResolveTenant() {
     );
   }
 
-  // Lebih dari satu tenant → tampilkan select sederhana
   return (
     <div className="max-w-lg mx-auto p-6 space-y-4">
       <h1 className="text-xl font-semibold">Pilih Tenant</h1>
