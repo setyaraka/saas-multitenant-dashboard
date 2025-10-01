@@ -35,3 +35,15 @@ multi-tenant settings (Appearance) end-to-end and basic authentication.
 - Tenant selection flow (auto-assume single tenant, selection page for multi-tenant).
 - Capability prefetch (guard the UI based on role/permissions).
 - Error mapping (401/403/422/500) and UX polish for retries.
+
+### Frontend Setup
+
+## Environment
+```
+VITE_API_BASE_URL=http://localhost:4000
+```
+## Install & Run
+```
+pnpm install
+pnpm dev
+```
