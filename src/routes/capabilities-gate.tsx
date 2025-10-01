@@ -1,10 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import { useAuth } from "@/store/auth";
-import {
-  useTenantCapabilities,
-  useTenantId,
-} from "@/components/hooks/use-tenant-setting";
+import { useTenantCapabilities, useTenantId } from "@/hooks/use-tenant-setting";
 
 export default function CapabilitiesGate() {
   const userToken = useAuth((s) => s.userToken);

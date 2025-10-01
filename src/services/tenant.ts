@@ -1,4 +1,5 @@
 import { request, requestMultipart } from "@/lib/request";
+import { CapabilitiesResp } from "@/types/api";
 
 export type SettingsResp = {
   appearance: {
@@ -45,6 +46,12 @@ export type UpdateDomainDto = { domain?: string; autoHttps?: boolean };
 export const TenantsApi = {
   getSettings: (tenantId: string) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings`, {
+      method: "GET",
+      tenantScoped: true,
+    }),
+
+  getCapabilities: (tenantId: string) =>
+    request<CapabilitiesResp>(`/tenants/${tenantId}/capabilities`, {
       method: "GET",
       tenantScoped: true,
     }),

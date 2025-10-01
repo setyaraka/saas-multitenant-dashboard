@@ -5,7 +5,7 @@ import {
   useTenantCapabilities,
   useTenantSettings,
   useUpdateAppearance,
-} from "@/components/hooks/use-tenant-setting";
+} from "@/hooks/use-tenant-setting";
 
 export default function SettingsAppearancePage() {
   const { data: settings, isLoading } = useTenantSettings();

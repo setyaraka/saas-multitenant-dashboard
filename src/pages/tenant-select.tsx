@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { useAssumeTenant, useMyTenants } from "@/components/hooks/use-auth";
+import { useAssumeTenant, useMyTenants } from "@/hooks/use-auth";
 
 export default function TenantSelectPage() {
   const { data, isLoading, error } = useMyTenants();

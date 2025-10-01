@@ -251,7 +251,7 @@ export default function AnalyticsPage() {
               />
             </Col>
             <Col className="text-end" xs={2}>
-              <Button color="primary">Export CSV</Button>
+              <Button className="bg-accent text-white">Export CSV</Button>
             </Col>
           </Row>
           <Tabs aria-label="analytics-tabs" className="mt-2">

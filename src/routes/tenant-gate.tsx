@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useRef, useEffect } from "react";
 
 import { useAuth } from "@/store/auth";
-import { useAssumeTenant, useMyTenants } from "@/components/hooks/use-auth";
+import { useAssumeTenant, useMyTenants } from "@/hooks/use-auth";
 
 export default function TenantGate() {
   const userToken = useAuth((s) => s.userToken);

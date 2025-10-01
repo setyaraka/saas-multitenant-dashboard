@@ -1,3 +1,29 @@
 @import "tailwindcss";
 
+@theme inline {
+    --color-brand: var(--tenant-brand, oklch(0.77 0.12 230));
+    --color-accent: var(--tenant-accent, oklch(0.76 0.18 70));
+  
+  }
+
+  :root {
+    --color-brand-foreground: #ffffff;
+    --color-accent-foreground: #111827;
+  }
+
+  @layer components {
+    .btn-brand {
+      @apply bg-brand hover:opacity-90;
+      color: var(--color-brand-foreground);
+    }
+    .btn-accent {
+      @apply bg-accent hover:opacity-90;
+      color: var(--color-accent-foreground);
+    }
+  }
+  
+  @layer utilities {
+    .ring-brand { --tw-ring-color: var(--color-brand); }
+  }
+
 @config "../../tailwind.config.js"

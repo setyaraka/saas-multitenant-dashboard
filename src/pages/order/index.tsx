@@ -8,7 +8,6 @@ import {
 } from "@heroui/table";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
-import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { useMemo, useState } from "react";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
@@ -18,6 +17,7 @@ import dayjs, { Dayjs } from "dayjs";
 import StatusChip from "@/components/status-chip";
 import DefaultLayout from "@/layouts/default";
 import TableFooter from "@/components/table-footer";
+import AccentButton from "@/components/ui/Button";
 
 type Order = {
   id: string;
@@ -230,15 +230,14 @@ export default function OrdersPage() {
                 })
               }
             />
-
             <div className="ml-auto flex items-center gap-2">
-              <Button
+              <AccentButton
                 isDisabled={!isFilterActive}
                 variant="flat"
                 onPress={resetFilters}
               >
                 Reset
-              </Button>
+              </AccentButton>
             </div>
           </div>
 
