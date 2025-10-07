@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
+import { addToast } from "@heroui/toast";
 
 import SettingsNav from "./setting-nav";
 import AppearanceSettings, { AppearanceValues } from "./appearance";
@@ -325,7 +326,11 @@ export default function SettingsPage() {
           setAppearance((p) => ({ ...p, logoFileName: "" }));
         }
 
-        alert("Appearance saved");
+        addToast({
+          title: "Appearance saved",
+          description: "Appearance saved successfully",
+          color: "success",
+        });
 
         return;
       }

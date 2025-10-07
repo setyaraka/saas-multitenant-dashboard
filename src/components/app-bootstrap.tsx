@@ -1,4 +1,3 @@
-// components/app-bootstrap.tsx
 import { useEffect } from "react";
 
 import {
