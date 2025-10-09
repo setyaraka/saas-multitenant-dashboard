@@ -194,19 +194,12 @@ export default function SettingsPage() {
       density: serverDensityToUi(settings.appearance.density),
     }));
 
-    // setDomainCfg((prev) => ({
-    //   ...prev,
-    //   domain: settings.domain?.domain ?? "",
-    //   dnsStatus: settings.domain?.status ?? "not_verified",
-    //   autoTLS: settings.domain?.autoHttps ?? true,
-    //   // cnameHost/cnameTarget tetap dummy di FE (tidak dari BE)
-    // }));
+    setDomainCfg((prev) => ({
+      ...prev,
+      domain: settings.domain?.domain ?? "",
+      autoHttps: settings.domain?.autoHttps ?? true,
+    }));
 
-    // setLocale((prev) => ({
-    //   language: settings.localization.locale ?? "id-ID",
-    //   currency: settings.localization.currency ?? "IDR",
-    //   timezone: settings.localization.timezone ?? "Asia/Jakarta",
-    // }));
   }, [settings]);
 
   const renderSection = () => {
@@ -341,7 +334,11 @@ export default function SettingsPage() {
           currency: locale.currency,
           timezone: locale.timezone,
         });
-        alert("Localization saved");
+        addToast({
+          title: "Localization saved",
+          description: "Localization saved successfully",
+          color: "success",
+        });
 
         return;
       }
@@ -351,7 +348,11 @@ export default function SettingsPage() {
           domain: domainCfg.domain || undefined,
           autoHttps: domainCfg.autoTLS,
         });
-        alert("Domain saved");
+        addToast({
+          title: "Domain saved",
+          description: "Domain saved successfully",
+          color: "success",
+        });
 
         return;
       }
