@@ -2,14 +2,15 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import { useAuth } from "@/store/auth";
+import { TenantsApi } from "@/services/tenant";
+import { applyTenantTheme } from "@/lib/theme-runtime";
 import {
-  TenantsApi,
   UpdateAppearanceDto,
   UpdateLocalizationDto,
   UpdateDomainDto,
   SettingsResp,
-} from "@/services/tenant";
-import { applyTenantTheme } from "@/lib/theme-runtime";
+  UpdateIntegrationDto,
+} from "@/services/dto/tenant-dto";
 
 const queryKey = {
   settings: (id: string) => ["settings", id] as const,
@@ -116,6 +117,17 @@ export function useUploadLogo() {
 
   return useMutation({
     mutationFn: (file: File) => TenantsApi.uploadLogo(tenantId, file),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateIntegration() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateIntegrationDto) =>
+      TenantsApi.updateIntegration(tenantId, body),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });
