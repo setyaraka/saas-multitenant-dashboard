@@ -24,6 +24,7 @@ import {
   useTenantSettings,
   useUpdateAppearance,
   useUpdateDomain,
+  useUpdateIntegration,
   useUpdateLocalization,
   useUploadLogo,
 } from "@/hooks/use-tenant-setting";
@@ -178,6 +179,7 @@ export default function SettingsPage() {
   const mutLoc = useUpdateLocalization();
   const mutDom = useUpdateDomain();
   const mutLogo = useUploadLogo();
+  const mutInt = useUpdateIntegration();
   const { data: settings } = useTenantSettings();
 
   const logoFileRef = useRef<File | null>(null);
@@ -199,7 +201,6 @@ export default function SettingsPage() {
       domain: settings.domain?.domain ?? "",
       autoHttps: settings.domain?.autoHttps ?? true,
     }));
-
   }, [settings]);
 
   const renderSection = () => {
@@ -351,6 +352,22 @@ export default function SettingsPage() {
         addToast({
           title: "Domain saved",
           description: "Domain saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if (section === "integrations") {
+        await mutInt.mutateAsync({
+          slack: third.slackSendOrderEvents,
+          zapier: third.zapierEnableTriggers,
+          webhookUrl: third.webhookUrl,
+        });
+
+        addToast({
+          title: "Integration saved",
+          description: "Integration saved successfully",
           color: "success",
         });
 
