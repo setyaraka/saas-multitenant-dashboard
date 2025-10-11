@@ -201,6 +201,13 @@ export default function SettingsPage() {
       domain: settings.domain?.domain ?? "",
       autoHttps: settings.domain?.autoHttps ?? true,
     }));
+
+    setThird((prev) => ({
+      ...prev,
+      slackSendOrderEvents: settings.integration?.slackEnabled ?? false,
+      zapierEnableTriggers: settings.integration?.zapierEnabled ?? false,
+      webhookUrl: settings.integration?.webhookUrl ?? ""
+    }))
   }, [settings]);
 
   const renderSection = () => {
@@ -360,8 +367,8 @@ export default function SettingsPage() {
 
       if (section === "integrations") {
         await mutInt.mutateAsync({
-          slack: third.slackSendOrderEvents,
-          zapier: third.zapierEnableTriggers,
+          slackEnabled: third.slackSendOrderEvents,
+          zapierEnabled: third.zapierEnableTriggers,
           webhookUrl: third.webhookUrl,
         });
 

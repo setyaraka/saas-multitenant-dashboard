@@ -55,7 +55,7 @@ export const TenantsApi = {
   },
 
   updateIntegration: (tenantId: string, body: UpdateIntegrationDto) =>
-    request<SettingsResp>(`/tenants${tenantId}/settings/third-party`, {
+    request<SettingsResp>(`/tenants/${tenantId}/settings/integration`, {
       method: "PATCH",
       body,
       tenantScoped: true,
