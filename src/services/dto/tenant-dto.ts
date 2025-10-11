@@ -20,6 +20,7 @@ export type SettingsResp = {
     verifiedAt?: string | null;
   } | null;
   logoUrl: string | null;
+  integration: UpdateIntegrationDto
 };
 
 export type UpdateAppearanceDto = {
@@ -45,7 +46,7 @@ export type UpdateDomainDto = {
 };
 
 export type UpdateIntegrationDto = {
-  slack?: boolean;
-  zapier?: boolean;
+  slackEnabled?: boolean;
+  zapierEnabled?: boolean;
   webhookUrl?: string;
 };
