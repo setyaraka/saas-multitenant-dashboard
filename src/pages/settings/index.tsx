@@ -12,12 +12,13 @@ import { Invoice } from "./invoice-table";
 import ThirdPartySection, { ThirdPartyValues } from "./third-party";
 import AuthenticationSection, { AuthValues } from "./authentication";
 import RoleMatrixSection, { RoleMatrix, SCOPES } from "./role-matrix";
-import Localization, { LocaleValues } from "./localization";
+import Localization from "./localization";
 import DataRetentionSection, { DataRetentionValues } from "./data-retention";
 import ApiKeysSection, { ApiKeysValues } from "./api-key";
 import ProfileSection, { ProfileValues } from "./profile";
 import NotificationsSection, { NotificationsValues } from "./notifications";
 import AccessibilitySection, { AccessibilityValues } from "./accessibility";
+import { LocaleValues, SectionKey } from "./types";
 
 import DefaultLayout from "@/layouts/default";
 import {
@@ -35,20 +36,6 @@ import {
   uiModeToServer,
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
-
-type SectionKey =
-  | "appearance"
-  | "domain"
-  | "billing"
-  | "integrations"
-  | "sso"
-  | "roles"
-  | "localization"
-  | "compliance"
-  | "api"
-  | "profile"
-  | "notifications"
-  | "accessibility";
 
 const INVOICES: Invoice[] = [
   {
@@ -206,8 +193,17 @@ export default function SettingsPage() {
       ...prev,
       slackSendOrderEvents: settings.integration?.slackEnabled ?? false,
       zapierEnableTriggers: settings.integration?.zapierEnabled ?? false,
-      webhookUrl: settings.integration?.webhookUrl ?? ""
-    }))
+      webhookUrl: settings.integration?.webhookUrl ?? "",
+    }));
+
+    setLocale(() => ({
+      language: (settings.localization?.locale ??
+        "id-ID") as LocaleValues["language"],
+      currency: (settings.localization?.currency ??
+        "IDR") as LocaleValues["currency"],
+      timezone: (settings.localization?.timezone ??
+        "Asia/Jakarta") as LocaleValues["timezone"],
+    }));
   }, [settings]);
 
   const renderSection = () => {

@@ -1,25 +1,11 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Select, SelectItem } from "@heroui/select";
 
+import { LocaleValues } from "../types";
+
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
 
-export type LocaleValues = {
-  language: "id-ID" | "en-US" | "en-GB";
-  timezone:
-    | "Asia/Jakarta"
-    | "Asia/Makassar"
-    | "Asia/Jayapura"
-    | "UTC"
-    | "Asia/Singapore";
-  currency: "IDR" | "USD" | "EUR" | "SGD";
-};
-
-type Props = {
-  values: LocaleValues;
-  onChange: (patch: Partial<LocaleValues>) => void;
-  className?: string;
-};
 const LANGUAGES = [
   { key: "id-ID", label: "Bahasa Indonesia" },
   { key: "en-US", label: "English (US)" },
@@ -40,6 +26,12 @@ const CURRENCIES = [
   { key: "EUR", label: "EUR" },
   { key: "SGD", label: "SGD" },
 ] as const;
+
+type Props = {
+  values: LocaleValues;
+  onChange: (patch: Partial<LocaleValues>) => void;
+  className?: string;
+};
 
 export default function Localization({
   values,
