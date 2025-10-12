@@ -34,7 +34,6 @@ export type UpdateAppearanceDto = {
 };
 
 export type UpdateLocalizationDto = {
-  locale?: string;
   language?: string;
   currency?: string;
   timezone?: string;
