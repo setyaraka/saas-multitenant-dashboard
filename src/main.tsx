@@ -7,6 +7,7 @@ import App from "./App.tsx";
 import { Provider } from "./provider.tsx";
 
 import "@/styles/globals.css";
+import "./18n";
 
 const qc = new QueryClient({
   defaultOptions: {
