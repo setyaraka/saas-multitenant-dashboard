@@ -206,8 +206,8 @@ export default function SettingsPage() {
       ...prev,
       slackSendOrderEvents: settings.integration?.slackEnabled ?? false,
       zapierEnableTriggers: settings.integration?.zapierEnabled ?? false,
-      webhookUrl: settings.integration?.webhookUrl ?? ""
-    }))
+      webhookUrl: settings.integration?.webhookUrl ?? "",
+    }));
   }, [settings]);
 
   const renderSection = () => {

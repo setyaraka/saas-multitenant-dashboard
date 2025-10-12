@@ -20,7 +20,7 @@ export type SettingsResp = {
     verifiedAt?: string | null;
   } | null;
   logoUrl: string | null;
-  integration: UpdateIntegrationDto
+  integration: UpdateIntegrationDto;
 };
 
 export type UpdateAppearanceDto = {
