@@ -2,6 +2,18 @@
     "Welcome to React": "Selamat datang di React",
     "greeting": "Halo, dunia!",
     "welcome": "Selamat datang di aplikasi kami",
-    "logout": "Keluar"
+    "logout": "Keluar",
+    "appearance": "Tampilan",
+    "domain": "Domain",
+    "billing": "Penagihan",
+    "integrations": "Integrasi",
+    "security": "Keamanan",
+    "roles_and_permissions": "Peran dan Izin",
+    "localization": "Lokalisasi",
+    "data_and_compliance": "Data & Kepatuhan",
+    "profile": "Profil",
+    "notifications": "Notifikasi",
+    "accessibility": "Aksesibilitas",
+    "save_changes": "Simpan Perubahan",
+    "cancel": "Batalkan"
 }
-  
