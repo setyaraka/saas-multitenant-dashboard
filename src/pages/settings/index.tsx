@@ -36,6 +36,7 @@ import {
   uiModeToServer,
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
+import { useTranslation } from "react-i18next";
 
 const INVOICES: Invoice[] = [
   {
@@ -94,6 +95,7 @@ const DEFAULT_MATRIX: RoleMatrix = {
 };
 
 export default function SettingsPage() {
+  const { t, i18n } = useTranslation();
   const [section, setSection] = useState<SectionKey>("appearance");
 
   const [appearance, setAppearance] = useState<AppearanceValues>({
@@ -204,7 +206,16 @@ export default function SettingsPage() {
       timezone: (settings.localization?.timezone ??
         "Asia/Jakarta") as LocaleValues["timezone"],
     }));
+
+    const lang = mapLanguageCode(settings.localization?.locale ?? "id-ID");
+    i18n.changeLanguage(lang);
   }, [settings]);
+
+  const mapLanguageCode = (lang: string): string => {
+    if (lang.startsWith("id")) return "id";
+    if (lang.startsWith("en")) return "en";
+    return "en";
+  };  
 
   const renderSection = () => {
     if (section === "appearance") {
@@ -344,6 +355,8 @@ export default function SettingsPage() {
           color: "success",
         });
 
+        const lang = mapLanguageCode(locale.language);
+        i18n.changeLanguage(lang);
         return;
       }
 
@@ -402,9 +415,9 @@ export default function SettingsPage() {
           </div>
 
           <div className="mt-6 flex justify-end gap-2">
-            <Button variant="flat">Cancel</Button>
+            <Button variant="flat">{t("cancel")}</Button>
             <AccentButton variant="flat" onPress={handleSave}>
-              Save Changes
+              {t("save_changes")}
             </AccentButton>
           </div>
         </CardBody>

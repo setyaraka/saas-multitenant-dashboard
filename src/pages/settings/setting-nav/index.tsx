@@ -1,4 +1,5 @@
 import { Button } from "@heroui/button";
+import { useTranslation } from "react-i18next";
 
 export type SettingsSectionKey =
   | "appearance"
@@ -20,39 +21,40 @@ type Props = {
   className?: string;
 };
 
-const GROUPS: {
-  title: string;
-  items: { id: SettingsSectionKey; label: string }[];
-}[] = [
-  {
-    title: "Tenant",
-    items: [
-      { id: "appearance", label: "Appearance" },
-      { id: "domain", label: "Domain" },
-      { id: "billing", label: "Billing" },
-      { id: "integrations", label: "Integrations" },
-      { id: "sso", label: "Security / SSO" },
-      { id: "roles", label: "Roles & Permissions" },
-      { id: "localization", label: "Localization" },
-      { id: "compliance", label: "Data & Compliance" },
-      { id: "api", label: "API" },
-    ],
-  },
-  {
-    title: "User",
-    items: [
-      { id: "profile", label: "Profile" },
-      { id: "notifications", label: "Notifications" },
-      { id: "accessibility", label: "Accessibility" },
-    ],
-  },
-];
-
 export default function SettingsNav({
   section,
   onChange,
   className = "",
 }: Props) {
+  const { t } = useTranslation();
+
+  const GROUPS: {
+    title: string;
+    items: { id: SettingsSectionKey; label: string }[];
+  }[] = [
+    {
+      title: "Tenant",
+      items: [
+        { id: "appearance", label: t("appearance") },
+        { id: "domain", label: t("domain") },
+        { id: "billing", label: t("billing") },
+        { id: "integrations", label: t("integrations") },
+        { id: "sso", label: `${t("security")} / SSO` },
+        { id: "roles", label: t("roles_and_permissions") },
+        { id: "localization", label: t("localization") },
+        { id: "compliance", label: t("data_and_compliance") },
+        { id: "api", label: "API" },
+      ],
+    },
+    {
+      title: "User",
+      items: [
+        { id: "profile", label: t("profile") },
+        { id: "notifications", label: t("notifications") },
+        { id: "accessibility", label: t("accessibility") },
+      ],
+    },
+  ];
   return (
     <aside
       className={`rounded-xl border border-gray-300 shadow-xl bg-content1 p-3 ${className}`}
