@@ -49,3 +49,9 @@ export type UpdateIntegrationDto = {
   zapierEnabled?: boolean;
   webhookUrl?: string;
 };
+
+export type UpdateSSODTO = {
+  enforceMFA: boolean;
+  sso: "disabled" | "saml" | "oidc-google" | "oidc-microsoft";
+  allowedDomains: string;
+}

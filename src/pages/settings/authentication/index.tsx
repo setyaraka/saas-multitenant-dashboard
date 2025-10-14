@@ -5,16 +5,11 @@ import { Select, SelectItem } from "@heroui/select";
 
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
-
-export type AuthValues = {
-  enforceMFA: boolean;
-  sso: "disabled" | "saml" | "oidc-google" | "oidc-microsoft";
-  allowedDomains: string;
-};
+import { UpdateSSODTO } from "@/services/dto/tenant-dto";
 
 type Props = {
-  values: AuthValues;
-  onChange: (patch: Partial<AuthValues>) => void;
+  values: UpdateSSODTO;
+  onChange: (patch: Partial<UpdateSSODTO>) => void;
   className?: string;
 };
 
@@ -56,7 +51,7 @@ export default function AuthenticationSection({
               className="max-w-xs"
               selectedKeys={[sso]}
               onSelectionChange={(keys) =>
-                onChange({ sso: Array.from(keys)[0] as AuthValues["sso"] })
+                onChange({ sso: Array.from(keys)[0] as UpdateSSODTO["sso"] })
               }
             >
               <SelectItem key="disabled">Disabled</SelectItem>

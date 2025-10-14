@@ -4,6 +4,7 @@ import {
   UpdateDomainDto,
   UpdateIntegrationDto,
   UpdateLocalizationDto,
+  UpdateSSODTO,
 } from "./dto/tenant-dto";
 
 import { request, requestMultipart } from "@/lib/request";
@@ -57,6 +58,13 @@ export const TenantsApi = {
   updateIntegration: (tenantId: string, body: UpdateIntegrationDto) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/integration`, {
       method: "PATCH",
+      body,
+      tenantScoped: true,
+    }),
+
+  updateSso: (tenantId: string, body: UpdateSSODTO) => 
+    request<SettingsResp>(`/tenants/${tenantId}/settings/sso`, {
+      method: "POST",
       body,
       tenantScoped: true,
     }),
