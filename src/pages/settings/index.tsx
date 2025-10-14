@@ -10,7 +10,7 @@ import CustomDomainCard, { DomainValues } from "./custom-domain";
 import BillingSection, { BillingValues } from "./billing";
 import { Invoice } from "./invoice-table";
 import ThirdPartySection, { ThirdPartyValues } from "./third-party";
-import AuthenticationSection, { AuthValues } from "./authentication";
+import AuthenticationSection from "./authentication";
 import RoleMatrixSection, { RoleMatrix, SCOPES } from "./role-matrix";
 import Localization from "./localization";
 import DataRetentionSection, { DataRetentionValues } from "./data-retention";
@@ -27,6 +27,7 @@ import {
   useUpdateDomain,
   useUpdateIntegration,
   useUpdateLocalization,
+  useUpdateSSO,
   useUploadLogo,
 } from "@/hooks/use-tenant-setting";
 import {
@@ -37,6 +38,7 @@ import {
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
 import { useTranslation } from "react-i18next";
+import { UpdateSSODTO } from "@/services/dto/tenant-dto";
 
 const INVOICES: Invoice[] = [
   {
@@ -126,7 +128,7 @@ export default function SettingsPage() {
     webhookUrl: "",
   });
 
-  const [auth, setAuth] = useState<AuthValues>({
+  const [auth, setAuth] = useState<UpdateSSODTO>({
     enforceMFA: false,
     sso: "disabled",
     allowedDomains: "",
@@ -169,6 +171,7 @@ export default function SettingsPage() {
   const mutDom = useUpdateDomain();
   const mutLogo = useUploadLogo();
   const mutInt = useUpdateIntegration();
+  const mutSso = useUpdateSSO();
   const { data: settings } = useTenantSettings();
 
   const logoFileRef = useRef<File | null>(null);
@@ -388,6 +391,14 @@ export default function SettingsPage() {
         });
 
         return;
+      }
+
+      if(section === "sso") {
+        await mutSso.mutateAsync({
+          enforceMFA: auth.enforceMFA,
+          sso: auth.sso,
+          allowedDomains: auth.allowedDomains
+        })
       }
 
       alert("Bagian ini belum terhubung ke API (di luar Epic 4).");

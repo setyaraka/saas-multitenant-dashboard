@@ -10,6 +10,7 @@ import {
   UpdateDomainDto,
   SettingsResp,
   UpdateIntegrationDto,
+  UpdateSSODTO,
 } from "@/services/dto/tenant-dto";
 
 const queryKey = {
@@ -28,8 +29,7 @@ export function useTenantSettings() {
     queryKey: queryKey.settings(tenantId),
     queryFn: () => TenantsApi.getSettings(tenantId),
     enabled: !!tenantId,
-    // staleTime: 5 * 60 * 1000,
-    staleTime: 0,
+    staleTime: 5 * 60 * 1000,
     placeholderData: (previousData) => previousData,
   });
 }
@@ -132,6 +132,17 @@ export function useUpdateIntegration() {
       qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });
 }
+export function useUpdateSSO() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateSSODTO) =>  
+      TenantsApi.updateSso(tenantId, body),
+    onSuccess: () => 
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  })
+;}
 export function useTenantCapabilities() {
   const tenantId = useTenantId();
   const setPermissions = useAuth((s) => s.setPermissions);
