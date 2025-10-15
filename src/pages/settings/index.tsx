@@ -3,6 +3,7 @@ import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 import { addToast } from "@heroui/toast";
+import { useTranslation } from "react-i18next";
 
 import SettingsNav from "./setting-nav";
 import AppearanceSettings, { AppearanceValues } from "./appearance";
@@ -27,6 +28,7 @@ import {
   useUpdateDomain,
   useUpdateIntegration,
   useUpdateLocalization,
+  useUpdateProfile,
   useUpdateSSO,
   useUploadLogo,
 } from "@/hooks/use-tenant-setting";
@@ -37,7 +39,6 @@ import {
   uiModeToServer,
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
-import { useTranslation } from "react-i18next";
 import { UpdateSSODTO } from "@/services/dto/tenant-dto";
 
 const INVOICES: Invoice[] = [
@@ -172,6 +173,7 @@ export default function SettingsPage() {
   const mutLogo = useUploadLogo();
   const mutInt = useUpdateIntegration();
   const mutSso = useUpdateSSO();
+  const mutProf = useUpdateProfile();
   const { data: settings } = useTenantSettings();
 
   const logoFileRef = useRef<File | null>(null);
@@ -211,14 +213,16 @@ export default function SettingsPage() {
     }));
 
     const lang = mapLanguageCode(settings.localization?.locale ?? "id-ID");
+
     i18n.changeLanguage(lang);
   }, [settings]);
 
   const mapLanguageCode = (lang: string): string => {
     if (lang.startsWith("id")) return "id";
     if (lang.startsWith("en")) return "en";
+
     return "en";
-  };  
+  };
 
   const renderSection = () => {
     if (section === "appearance") {
@@ -359,7 +363,9 @@ export default function SettingsPage() {
         });
 
         const lang = mapLanguageCode(locale.language);
+
         i18n.changeLanguage(lang);
+
         return;
       }
 
@@ -393,12 +399,34 @@ export default function SettingsPage() {
         return;
       }
 
-      if(section === "sso") {
+      if (section === "sso") {
         await mutSso.mutateAsync({
           enforceMFA: auth.enforceMFA,
           sso: auth.sso,
-          allowedDomains: auth.allowedDomains
-        })
+          allowedDomains: auth.allowedDomains,
+        });
+
+        addToast({
+          title: "SSO saved",
+          description: "SSO saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if (section === "profile") {
+        await mutProf.mutateAsync({
+          fullName: profile.fullName,
+          email: profile.email,
+        });
+
+        addToast({
+          title: "Profile saved",
+          description: "Profile saved successfully",
+          color: "success",
+        });
+        return;
       }
 
       alert("Bagian ini belum terhubung ke API (di luar Epic 4).");

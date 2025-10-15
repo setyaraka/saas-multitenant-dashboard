@@ -54,4 +54,9 @@ export type UpdateSSODTO = {
   enforceMFA: boolean;
   sso: "disabled" | "saml" | "oidc-google" | "oidc-microsoft";
   allowedDomains: string;
-}
+};
+
+export type UpdateProfileDTO = {
+  fullName: string;
+  email: string;
+};
