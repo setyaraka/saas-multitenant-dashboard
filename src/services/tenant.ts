@@ -4,6 +4,7 @@ import {
   UpdateDomainDto,
   UpdateIntegrationDto,
   UpdateLocalizationDto,
+  UpdateProfileDTO,
   UpdateSSODTO,
 } from "./dto/tenant-dto";
 
@@ -62,9 +63,16 @@ export const TenantsApi = {
       tenantScoped: true,
     }),
 
-  updateSso: (tenantId: string, body: UpdateSSODTO) => 
+  updateSso: (tenantId: string, body: UpdateSSODTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/sso`, {
       method: "POST",
+      body,
+      tenantScoped: true,
+    }),
+
+  updateProfile: (tenantId: string, body: UpdateProfileDTO) =>
+    request<SettingsResp>(`/tenants/${tenantId}/settings/profile`, {
+      method: "PATCH",
       body,
       tenantScoped: true,
     }),

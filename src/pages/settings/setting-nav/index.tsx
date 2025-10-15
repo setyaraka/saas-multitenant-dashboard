@@ -55,6 +55,7 @@ export default function SettingsNav({
       ],
     },
   ];
+
   return (
     <aside
       className={`rounded-xl border border-gray-300 shadow-xl bg-content1 p-3 ${className}`}
