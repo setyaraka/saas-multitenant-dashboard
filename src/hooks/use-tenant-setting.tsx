@@ -1,8 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import { useMe } from "./use-auth";
-
 import { useAuth } from "@/store/auth";
 import { TenantsApi } from "@/services/tenant";
 import { applyTenantTheme } from "@/lib/theme-runtime";
@@ -147,15 +145,13 @@ export function useUpdateSSO() {
 }
 export function useUpdateProfile() {
   const qc = useQueryClient();
-
-  const { data: me } = useMe();
-  const userId = me?.userId ?? "";
+  const tenantId = useTenantId();
 
   return useMutation({
     mutationFn: (body: UpdateProfileDTO) =>
-      TenantsApi.updateProfile(userId, body),
+      TenantsApi.updateProfile(tenantId, body),
     onSuccess: () =>
-      qc.invalidateQueries({ queryKey: queryKey.settings(userId) }),
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });
 }
 export function useTenantCapabilities() {
