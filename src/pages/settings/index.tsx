@@ -215,6 +215,12 @@ export default function SettingsPage() {
     const lang = mapLanguageCode(settings.localization?.locale ?? "id-ID");
 
     i18n.changeLanguage(lang);
+
+    setProfile(() => ({
+      fullName: settings.users.name,
+      email: settings.users.email
+    }))
+    
   }, [settings]);
 
   const mapLanguageCode = (lang: string): string => {
