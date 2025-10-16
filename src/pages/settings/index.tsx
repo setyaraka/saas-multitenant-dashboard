@@ -215,6 +215,11 @@ export default function SettingsPage() {
     const lang = mapLanguageCode(settings.localization?.locale ?? "id-ID");
 
     i18n.changeLanguage(lang);
+
+    setProfile(() => ({
+      fullName: settings.users.name,
+      email: settings.users.email,
+    }));
   }, [settings]);
 
   const mapLanguageCode = (lang: string): string => {
@@ -417,7 +422,7 @@ export default function SettingsPage() {
 
       if (section === "profile") {
         await mutProf.mutateAsync({
-          fullName: profile.fullName,
+          name: profile.fullName,
           email: profile.email,
         });
 
@@ -426,6 +431,7 @@ export default function SettingsPage() {
           description: "Profile saved successfully",
           color: "success",
         });
+
         return;
       }
 

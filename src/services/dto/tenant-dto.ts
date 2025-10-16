@@ -1,26 +1,46 @@
+export type Mode = "LIGHT" | "DARK" | "SYSTEM";
+
+export type Density = "COMFORTABLE" | "COMPACT";
+
+export type Status = "not_verified" | "verifying" | "active" | "failed";
+
+export type Sso = "disabled" | "saml" | "oidc-google" | "oidc-microsoft";
+
+export type UserSetting = {
+  email: string;
+  name: string;
+};
+
+export type Apperance = {
+  brandName: string | null;
+  primaryColor: string | null;
+  accent: string | null;
+  logoUrl: string | null;
+  mode: Mode | null;
+  density: Density | null;
+  fontFamily: string | null;
+};
+
+export type Localization = {
+  locale: string | null;
+  currency: string | null;
+  timezone: string | null;
+};
+
+export type Domain = {
+  domain: string | null;
+  status: Status;
+  autoHttps?: boolean;
+  verifiedAt?: string | null;
+};
+
 export type SettingsResp = {
-  appearance: {
-    brandName: string | null;
-    primaryColor: string | null;
-    accent: string | null;
-    logoUrl: string | null;
-    mode: "LIGHT" | "DARK" | "SYSTEM" | null;
-    density: "COMFORTABLE" | "COMPACT" | null;
-    fontFamily: string | null;
-  };
-  localization: {
-    locale: string | null;
-    currency: string | null;
-    timezone: string | null;
-  };
-  domain: {
-    domain: string | null;
-    status: "not_verified" | "verifying" | "active" | "failed";
-    autoHttps?: boolean;
-    verifiedAt?: string | null;
-  } | null;
+  appearance: Apperance;
+  localization: Localization;
+  domain: Domain | null;
   logoUrl: string | null;
   integration: UpdateIntegrationDto;
+  users: UserSetting;
 };
 
 export type UpdateAppearanceDto = {
@@ -28,8 +48,8 @@ export type UpdateAppearanceDto = {
   primaryColor?: string;
   accent?: string;
   logoUrl?: string;
-  mode?: "LIGHT" | "DARK" | "SYSTEM";
-  density?: "COMFORTABLE" | "COMPACT";
+  mode?: Mode;
+  density?: Density;
   fontFamily?: string;
 };
 
@@ -52,11 +72,11 @@ export type UpdateIntegrationDto = {
 
 export type UpdateSSODTO = {
   enforceMFA: boolean;
-  sso: "disabled" | "saml" | "oidc-google" | "oidc-microsoft";
+  sso: Sso;
   allowedDomains: string;
 };
 
 export type UpdateProfileDTO = {
-  fullName: string;
+  name: string;
   email: string;
 };
