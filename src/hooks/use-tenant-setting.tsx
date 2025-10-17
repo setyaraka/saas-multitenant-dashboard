@@ -12,6 +12,10 @@ import {
   UpdateIntegrationDto,
   UpdateSSODTO,
   UpdateProfileDTO,
+  UpdateNotificationsDTO,
+  UpdateAccessibilityDTO,
+  UpdateComplianceDTO,
+  UpdateApiDTO,
 } from "@/services/dto/tenant-dto";
 
 const queryKey = {
@@ -150,6 +154,50 @@ export function useUpdateProfile() {
   return useMutation({
     mutationFn: (body: UpdateProfileDTO) =>
       TenantsApi.updateProfile(tenantId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateNotifications() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateNotificationsDTO) =>
+      TenantsApi.updateNotifications(tenantId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateAccessibility() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateAccessibilityDTO) =>
+      TenantsApi.updateAccessibility(tenantId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateCompliance() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateComplianceDTO) =>
+      TenantsApi.updateCompliance(tenantId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateApi() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateApiDTO) =>
+      TenantsApi.updateApi(tenantId, body),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });

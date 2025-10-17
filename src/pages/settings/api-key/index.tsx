@@ -5,14 +5,10 @@ import { Button } from "@heroui/button";
 
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
-
-export type ApiKeysValues = {
-  publicKey: string;
-  secretKey: string;
-};
+import { UpdateApiDTO } from "@/services/dto/tenant-dto";
 
 type Props = {
-  values: ApiKeysValues;
+  values: UpdateApiDTO;
   onRotateSecret?: () => void;
   className?: string;
 };
