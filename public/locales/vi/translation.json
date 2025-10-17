@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "Chào mừng đến với React",
+    "greeting": "Xin chào, thế giới!",
+    "welcome": "Chào mừng đến với ứng dụng của chúng tôi",
+    "logout": "Đăng xuất",
+    "appearance": "Giao diện",
+    "domain": "Miền",
+    "billing": "Thanh toán",
+    "integrations": "Tích hợp",
+    "security": "Bảo mật",
+    "roles_and_permissions": "Vai trò & Quyền",
+    "localization": "Bản địa hóa",
+    "data_and_compliance": "Dữ liệu & Tuân thủ",
+    "profile": "Hồ sơ",
+    "notifications": "Thông báo",
+    "accessibility": "Khả năng truy cập",
+    "save_changes": "Lưu thay đổi",
+    "cancel": "Hủy"
+  }
+  

@@ -196,8 +196,7 @@ export function useUpdateApi() {
   const tenantId = useTenantId();
 
   return useMutation({
-    mutationFn: (body: UpdateApiDTO) =>
-      TenantsApi.updateApi(tenantId, body),
+    mutationFn: (body: UpdateApiDTO) => TenantsApi.updateApi(tenantId, body),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });

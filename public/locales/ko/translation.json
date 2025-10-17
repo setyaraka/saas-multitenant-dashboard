@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "React에 오신 것을 환영합니다",
+    "greeting": "안녕하세요, 세계!",
+    "welcome": "우리 앱에 오신 것을 환영합니다",
+    "logout": "로그아웃",
+    "appearance": "모양",
+    "domain": "도메인",
+    "billing": "청구",
+    "integrations": "통합",
+    "security": "보안",
+    "roles_and_permissions": "역할 및 권한",
+    "localization": "현지화",
+    "data_and_compliance": "데이터 및 준수",
+    "profile": "프로필",
+    "notifications": "알림",
+    "accessibility": "접근성",
+    "save_changes": "변경사항 저장",
+    "cancel": "취소"
+  }
+  

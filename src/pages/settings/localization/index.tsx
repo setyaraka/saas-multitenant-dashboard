@@ -1,15 +1,29 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Select, SelectItem } from "@heroui/select";
 
-import { LocaleValues } from "../types";
-
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
+import { UpdateLocalizationDto } from "@/services/dto/tenant-dto";
 
 const LANGUAGES = [
-  { key: "id-ID", label: "Bahasa Indonesia" },
-  { key: "en-US", label: "English (US)" },
-  { key: "en-GB", label: "English (UK)" },
+  { key: "en", label: "English" },
+  // { key: "en-GB", label: "English (UK)" },
+  { key: "id", label: "Bahasa Indonesia" },
+  { key: "de", label: "German" },
+  { key: "es", label: "Spanish" },
+  { key: "pt", label: "Portuguese (Brazil)" },
+  { key: "hi", label: "Hindi" },
+  { key: "ja", label: "Japanese" },
+  { key: "ru", label: "Russian" },
+  { key: "tr", label: "Turkish" },
+  { key: "fr", label: "French" },
+  { key: "ko", label: "Korean" },
+  { key: "zh", label: "Chinese (Simplified)" },
+  { key: "ar", label: "Arabic" },
+  { key: "ms", label: "Malay" },
+  { key: "th", label: "Thai" },
+  { key: "vi", label: "Vietnamese" },
+  { key: "km", label: "Khmer" },
 ] as const;
 
 const TIMEZONES = [
@@ -28,8 +42,8 @@ const CURRENCIES = [
 ] as const;
 
 type Props = {
-  values: LocaleValues;
-  onChange: (patch: Partial<LocaleValues>) => void;
+  values: UpdateLocalizationDto;
+  onChange: (patch: Partial<UpdateLocalizationDto>) => void;
   className?: string;
 };
 
@@ -53,10 +67,12 @@ export default function Localization({
           </Col>
           <Col xs={10}>
             <Select
-              selectedKeys={[language]}
+              selectedKeys={[language ?? "en"]}
               onSelectionChange={(keys) =>
                 onChange({
-                  language: Array.from(keys)[0] as LocaleValues["language"],
+                  language: Array.from(
+                    keys,
+                  )[0] as UpdateLocalizationDto["language"],
                 })
               }
             >
@@ -73,10 +89,12 @@ export default function Localization({
           </Col>
           <Col xs={10}>
             <Select
-              selectedKeys={[timezone]}
+              selectedKeys={[timezone ?? "UTC"]}
               onSelectionChange={(keys) =>
                 onChange({
-                  timezone: Array.from(keys)[0] as LocaleValues["timezone"],
+                  timezone: Array.from(
+                    keys,
+                  )[0] as UpdateLocalizationDto["timezone"],
                 })
               }
             >
@@ -93,10 +111,12 @@ export default function Localization({
           </Col>
           <Col xs={10}>
             <Select
-              selectedKeys={[currency]}
+              selectedKeys={[currency ?? "USD"]}
               onSelectionChange={(keys) =>
                 onChange({
-                  currency: Array.from(keys)[0] as LocaleValues["currency"],
+                  currency: Array.from(
+                    keys,
+                  )[0] as UpdateLocalizationDto["currency"],
                 })
               }
             >

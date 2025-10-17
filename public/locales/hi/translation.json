@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "React में आपका स्वागत है",
+    "greeting": "नमस्ते, दुनिया!",
+    "welcome": "हमारे ऐप में आपका स्वागत है",
+    "logout": "लॉग आउट",
+    "appearance": "दिखावट",
+    "domain": "डोमेन",
+    "billing": "बिलिंग",
+    "integrations": "इंटीग्रेशन",
+    "security": "सुरक्षा",
+    "roles_and_permissions": "भूमिकाएँ और अनुमतियाँ",
+    "localization": "स्थानीयकरण",
+    "data_and_compliance": "डेटा और अनुपालन",
+    "profile": "प्रोफ़ाइल",
+    "notifications": "सूचनाएँ",
+    "accessibility": "उपलब्धता",
+    "save_changes": "परिवर्तनों को सहेजें",
+    "cancel": "रद्द करें"
+  }
+  

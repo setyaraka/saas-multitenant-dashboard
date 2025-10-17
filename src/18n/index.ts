@@ -6,14 +6,32 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-    fallbackLng: "id",
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
     backend: {
       loadPath: "/locales/{{lng}}/translation.json",
     },
-    supportedLngs: ["en", "id"],
+    supportedLngs: [
+      "id",
+      "en",
+      "es",
+      "pt",
+      "hi",
+      "ja",
+      "de",
+      "ru",
+      "tr",
+      "fr",
+      "ko",
+      "zh",
+      "ar",
+      "ms",
+      "th",
+      "vi",
+      "km",
+    ],
   });
 
 export default i18n;

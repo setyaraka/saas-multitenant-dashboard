@@ -19,7 +19,6 @@ import ApiKeysSection from "./api-key";
 import ProfileSection, { ProfileValues } from "./profile";
 import NotificationsSection, { NotificationsValues } from "./notifications";
 import AccessibilitySection from "./accessibility";
-import { LocaleValues, SectionKey } from "./types";
 
 import DefaultLayout from "@/layouts/default";
 import {
@@ -43,7 +42,27 @@ import {
   uiModeToServer,
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
-import { UpdateAccessibilityDTO, UpdateApiDTO, UpdateComplianceDTO, UpdateSSODTO } from "@/services/dto/tenant-dto";
+import {
+  UpdateAccessibilityDTO,
+  UpdateApiDTO,
+  UpdateComplianceDTO,
+  UpdateLocalizationDto,
+  UpdateSSODTO,
+} from "@/services/dto/tenant-dto";
+
+export type SectionKey =
+  | "appearance"
+  | "domain"
+  | "billing"
+  | "integrations"
+  | "sso"
+  | "roles"
+  | "localization"
+  | "compliance"
+  | "api"
+  | "profile"
+  | "notifications"
+  | "accessibility";
 
 const INVOICES: Invoice[] = [
   {
@@ -141,8 +160,8 @@ export default function SettingsPage() {
 
   const [matrix, setMatrix] = useState<RoleMatrix>(DEFAULT_MATRIX);
 
-  const [locale, setLocale] = useState<LocaleValues>({
-    language: "id-ID",
+  const [locale, setLocale] = useState<UpdateLocalizationDto>({
+    language: "id",
     timezone: "Asia/Jakarta",
     currency: "IDR",
   });
@@ -213,14 +232,14 @@ export default function SettingsPage() {
 
     setLocale(() => ({
       language: (settings.localization?.locale ??
-        "id-ID") as LocaleValues["language"],
+        "id-ID") as UpdateLocalizationDto["language"],
       currency: (settings.localization?.currency ??
-        "IDR") as LocaleValues["currency"],
+        "IDR") as UpdateLocalizationDto["currency"],
       timezone: (settings.localization?.timezone ??
-        "Asia/Jakarta") as LocaleValues["timezone"],
+        "Asia/Jakarta") as UpdateLocalizationDto["timezone"],
     }));
 
-    const lang = mapLanguageCode(settings.localization?.locale ?? "id-ID");
+    const lang = settings.localization?.locale ?? "id";
 
     i18n.changeLanguage(lang);
 
@@ -229,13 +248,6 @@ export default function SettingsPage() {
       email: settings.users.email,
     }));
   }, [settings]);
-
-  const mapLanguageCode = (lang: string): string => {
-    if (lang.startsWith("id")) return "id";
-    if (lang.startsWith("en")) return "en";
-
-    return "en";
-  };
 
   const renderSection = () => {
     if (section === "appearance") {
@@ -375,7 +387,7 @@ export default function SettingsPage() {
           color: "success",
         });
 
-        const lang = mapLanguageCode(locale.language);
+        const lang = locale.language ?? "en";
 
         i18n.changeLanguage(lang);
 
@@ -443,10 +455,10 @@ export default function SettingsPage() {
         return;
       }
 
-      if(section === "notifications") {
+      if (section === "notifications") {
         await mutNot.mutateAsync({
           orderCreatedEmail: notif.orderCreatedEmail,
-          invoiceIssueEmail: notif.invoiceIssuedEmail
+          invoiceIssueEmail: notif.invoiceIssuedEmail,
         });
 
         addToast({
@@ -458,10 +470,10 @@ export default function SettingsPage() {
         return;
       }
 
-      if(section === "accessibility") {
+      if (section === "accessibility") {
         await mutAcc.mutateAsync({
           reduceMotion: a11y.reduceMotion,
-          fontSize: a11y.fontSize
+          fontSize: a11y.fontSize,
         });
 
         addToast({
@@ -473,9 +485,9 @@ export default function SettingsPage() {
         return;
       }
 
-      if(section === "compliance") {
+      if (section === "compliance") {
         await mutCom.mutateAsync({
-          retentionDays: retention.retentionDays
+          retentionDays: retention.retentionDays,
         });
 
         addToast({
@@ -487,10 +499,10 @@ export default function SettingsPage() {
         return;
       }
 
-      if(section === "api") {
+      if (section === "api") {
         await mutApi.mutateAsync({
           publicKey: apiKeys.publicKey,
-          secretKey: apiKeys.secretKey
+          secretKey: apiKeys.secretKey,
         });
 
         addToast({

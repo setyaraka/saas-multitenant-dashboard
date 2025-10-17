@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "Reactへようこそ",
+    "greeting": "こんにちは、世界！",
+    "welcome": "私たちのアプリへようこそ",
+    "logout": "ログアウト",
+    "appearance": "表示設定",
+    "domain": "ドメイン",
+    "billing": "請求",
+    "integrations": "統合",
+    "security": "セキュリティ",
+    "roles_and_permissions": "ロールと権限",
+    "localization": "ローカライズ",
+    "data_and_compliance": "データとコンプライアンス",
+    "profile": "プロフィール",
+    "notifications": "通知",
+    "accessibility": "アクセシビリティ",
+    "save_changes": "変更を保存",
+    "cancel": "キャンセル"
+  }
+  
