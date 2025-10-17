@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "Добро пожаловать в React",
+    "greeting": "Привет, мир!",
+    "welcome": "Добро пожаловать в наше приложение",
+    "logout": "Выйти",
+    "appearance": "Внешний вид",
+    "domain": "Домен",
+    "billing": "Выставление счетов",
+    "integrations": "Интеграции",
+    "security": "Безопасность",
+    "roles_and_permissions": "Роли и разрешения",
+    "localization": "Локализация",
+    "data_and_compliance": "Данные и соответствие",
+    "profile": "Профиль",
+    "notifications": "Уведомления",
+    "accessibility": "Доступность",
+    "save_changes": "Сохранить изменения",
+    "cancel": "Отмена"
+  }
+  

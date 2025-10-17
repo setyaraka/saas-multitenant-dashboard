@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "مرحبًا بك في React",
+    "greeting": "مرحبًا أيّها العالم!",
+    "welcome": "مرحبًا بك في تطبيقنا",
+    "logout": "تسجيل الخروج",
+    "appearance": "المظهر",
+    "domain": "النطاق",
+    "billing": "الفوترة",
+    "integrations": "التكاملات",
+    "security": "الأمان",
+    "roles_and_permissions": "الأدوار والصلاحيات",
+    "localization": "التعريب",
+    "data_and_compliance": "البيانات والامتثال",
+    "profile": "الملف الشخصي",
+    "notifications": "الإشعارات",
+    "accessibility": "إمكانية الوصول",
+    "save_changes": "حفظ التغييرات",
+    "cancel": "إلغاء"
+  }
+  

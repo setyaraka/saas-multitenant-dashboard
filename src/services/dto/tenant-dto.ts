@@ -10,10 +10,38 @@ export type FontSize = "small" | "normal" | "large";
 
 export type RetentionValues = 7 | 30 | 60 | 90 | 180 | 365;
 
+export type Language =
+  | "id"
+  | "en"
+  | "es"
+  | "pt"
+  | "hi"
+  | "ja"
+  | "de"
+  | "ru"
+  | "tr"
+  | "fr"
+  | "ko"
+  | "zh"
+  | "ar"
+  | "ms"
+  | "th"
+  | "vi"
+  | "km";
+
+export type Timezone =
+  | "Asia/Jakarta"
+  | "Asia/Makassar"
+  | "Asia/Jayapura"
+  | "UTC"
+  | "Asia/Singapore";
+
+export type Currency = "IDR" | "USD" | "EUR" | "SGD";
+
 export interface UserSetting {
   email: string;
   name: string;
-};
+}
 
 export interface Apperance {
   brandName: string | null;
@@ -23,20 +51,20 @@ export interface Apperance {
   mode: Mode | null;
   density: Density | null;
   fontFamily: string | null;
-};
+}
 
 export interface Localization {
   locale: string | null;
   currency: string | null;
   timezone: string | null;
-};
+}
 
 export interface Domain {
   domain: string | null;
   status: Status;
   autoHttps?: boolean;
   verifiedAt?: string | null;
-};
+}
 
 export interface SettingsResp {
   appearance: Apperance;
@@ -45,7 +73,7 @@ export interface SettingsResp {
   logoUrl: string | null;
   integration: UpdateIntegrationDto;
   users: UserSetting;
-};
+}
 
 export interface UpdateAppearanceDto {
   brandName?: string;
@@ -55,35 +83,35 @@ export interface UpdateAppearanceDto {
   mode?: Mode;
   density?: Density;
   fontFamily?: string;
-};
+}
 
 export interface UpdateLocalizationDto {
-  language?: string;
-  currency?: string;
-  timezone?: string;
-};
+  language?: Language;
+  currency?: Currency;
+  timezone?: Timezone;
+}
 
 export interface UpdateDomainDto {
   domain?: string;
   autoHttps?: boolean;
-};
+}
 
 export interface UpdateIntegrationDto {
   slackEnabled?: boolean;
   zapierEnabled?: boolean;
   webhookUrl?: string;
-};
+}
 
 export interface UpdateSSODTO {
   enforceMFA: boolean;
   sso: Sso;
   allowedDomains: string;
-};
+}
 
 export interface UpdateProfileDTO {
   name: string;
   email: string;
-};
+}
 
 export interface UpdateNotificationsDTO {
   orderCreatedEmail: boolean;
@@ -96,7 +124,7 @@ export interface UpdateAccessibilityDTO {
 }
 
 export interface UpdateComplianceDTO {
-  retentionDays: RetentionValues
+  retentionDays: RetentionValues;
 }
 
 export interface UpdateApiDTO {

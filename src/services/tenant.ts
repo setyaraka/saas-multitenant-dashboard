@@ -81,28 +81,28 @@ export const TenantsApi = {
       tenantScoped: true,
     }),
 
-  updateNotifications: (tenantId: string, body: UpdateNotificationsDTO) => 
+  updateNotifications: (tenantId: string, body: UpdateNotificationsDTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/notifications`, {
       method: "PATCH",
       body,
       tenantScoped: true,
     }),
 
-  updateAccessibility: (tenantId: string, body: UpdateAccessibilityDTO) => 
+  updateAccessibility: (tenantId: string, body: UpdateAccessibilityDTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/accessibility`, {
       method: "PATCH",
       body,
       tenantScoped: true,
     }),
 
-  updateCompliance: (tenantId: string, body: UpdateComplianceDTO) => 
+  updateCompliance: (tenantId: string, body: UpdateComplianceDTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/compliance`, {
       method: "PATCH",
       body,
       tenantScoped: true,
     }),
 
-  updateApi: (tenantId: string, body: UpdateApiDTO) => 
+  updateApi: (tenantId: string, body: UpdateApiDTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/api`, {
       method: "PATCH",
       body,

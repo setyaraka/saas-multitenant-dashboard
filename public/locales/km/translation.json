@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "សូមស្វាគមន៍មកកាន់ React",
+    "greeting": "សួស្តី, ពិភពលោក!",
+    "welcome": "សូមស្វាគមន៍មកកាន់កម្មវិធីរបស់យើង",
+    "logout": "ចាកចេញ",
+    "appearance": "រូបរាង",
+    "domain": "ដូមែន",
+    "billing": "វិក្កយបត្រ",
+    "integrations": "បញ្ចូលគ្នា",
+    "security": "សន្តិសុខ",
+    "roles_and_permissions": "នាទី និងសិទ្ធិ",
+    "localization": "បំលែងភាសា",
+    "data_and_compliance": "ទិន្នន័យ & ការអនុវត្តតាម",
+    "profile": "ប្រវត្តិរូប",
+    "notifications": "ការជូនដំណឹង",
+    "accessibility": "ការចូលដំណើរការ",
+    "save_changes": "រក្សាទុកការផ្លាស់ប្តូរ",
+    "cancel": "បោះបង់"
+  }
+  

@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "ยินดีต้อนรับสู่ React",
+    "greeting": "สวัสดี, โลก!",
+    "welcome": "ยินดีต้อนรับสู่แอปของเรา",
+    "logout": "ออกจากระบบ",
+    "appearance": "ลักษณะ",
+    "domain": "โดเมน",
+    "billing": "การเรียกเก็บเงิน",
+    "integrations": "การรวมระบบ",
+    "security": "ความปลอดภัย",
+    "roles_and_permissions": "บทบาทและสิทธิ์",
+    "localization": "การแปลภาษา",
+    "data_and_compliance": "ข้อมูล & การปฏิบัติตามข้อกำหนด",
+    "profile": "โปรไฟล์",
+    "notifications": "การแจ้งเตือน",
+    "accessibility": "การเข้าถึง",
+    "save_changes": "บันทึกการเปลี่ยนแปลง",
+    "cancel": "ยกเลิก"
+  }
+  

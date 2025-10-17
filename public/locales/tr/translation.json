@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "React’e hoş geldiniz",
+    "greeting": "Merhaba, dünya!",
+    "welcome": "Uygulamamıza hoş geldiniz",
+    "logout": "Çıkış",
+    "appearance": "Görünüm",
+    "domain": "Etki alanı",
+    "billing": "Faturalama",
+    "integrations": "Entegrasyonlar",
+    "security": "Güvenlik",
+    "roles_and_permissions": "Roller ve izinler",
+    "localization": "Yerelleştirme",
+    "data_and_compliance": "Veri & uyumluluk",
+    "profile": "Profil",
+    "notifications": "Bildirimler",
+    "accessibility": "Erişilebilirlik",
+    "save_changes": "Değişiklikleri Kaydet",
+    "cancel": "İptal"
+  }
+  

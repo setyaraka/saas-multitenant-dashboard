@@ -1,0 +1,20 @@
+{
+    "Welcome to React": "Bienvenue sur React",
+    "greeting": "Bonjour le monde !",
+    "welcome": "Bienvenue dans notre application",
+    "logout": "Se déconnecter",
+    "appearance": "Apparence",
+    "domain": "Domaine",
+    "billing": "Facturation",
+    "integrations": "Intégrations",
+    "security": "Sécurité",
+    "roles_and_permissions": "Rôles et autorisations",
+    "localization": "Localisation",
+    "data_and_compliance": "Données & conformité",
+    "profile": "Profil",
+    "notifications": "Notifications",
+    "accessibility": "Accessibilité",
+    "save_changes": "Enregistrer les modifications",
+    "cancel": "Annuler"
+  }
+  

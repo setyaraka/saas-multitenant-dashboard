@@ -6,7 +6,6 @@ import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
 import { UpdateComplianceDTO } from "@/services/dto/tenant-dto";
 
-
 type Props = {
   values: UpdateComplianceDTO;
   onChange: (patch: Partial<UpdateComplianceDTO>) => void;
