@@ -4,15 +4,11 @@ import { Select, SelectItem } from "@heroui/select";
 
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
-
-export type AccessibilityValues = {
-  reduceMotion: boolean;
-  fontSize: "small" | "normal" | "large";
-};
+import { UpdateAccessibilityDTO } from "@/services/dto/tenant-dto";
 
 type Props = {
-  values: AccessibilityValues;
-  onChange: (patch: Partial<AccessibilityValues>) => void;
+  values: UpdateAccessibilityDTO;
+  onChange: (patch: Partial<UpdateAccessibilityDTO>) => void;
   className?: string;
 };
 
@@ -56,7 +52,7 @@ export default function AccessibilitySection({
                 onChange({
                   fontSize: Array.from(
                     keys,
-                  )[0] as AccessibilityValues["fontSize"],
+                  )[0] as UpdateAccessibilityDTO["fontSize"],
                 })
               }
             >

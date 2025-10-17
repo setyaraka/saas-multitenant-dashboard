@@ -14,20 +14,24 @@ import ThirdPartySection, { ThirdPartyValues } from "./third-party";
 import AuthenticationSection from "./authentication";
 import RoleMatrixSection, { RoleMatrix, SCOPES } from "./role-matrix";
 import Localization from "./localization";
-import DataRetentionSection, { DataRetentionValues } from "./data-retention";
-import ApiKeysSection, { ApiKeysValues } from "./api-key";
+import DataRetentionSection from "./data-retention";
+import ApiKeysSection from "./api-key";
 import ProfileSection, { ProfileValues } from "./profile";
 import NotificationsSection, { NotificationsValues } from "./notifications";
-import AccessibilitySection, { AccessibilityValues } from "./accessibility";
+import AccessibilitySection from "./accessibility";
 import { LocaleValues, SectionKey } from "./types";
 
 import DefaultLayout from "@/layouts/default";
 import {
   useTenantSettings,
+  useUpdateAccessibility,
+  useUpdateApi,
   useUpdateAppearance,
+  useUpdateCompliance,
   useUpdateDomain,
   useUpdateIntegration,
   useUpdateLocalization,
+  useUpdateNotifications,
   useUpdateProfile,
   useUpdateSSO,
   useUploadLogo,
@@ -39,7 +43,7 @@ import {
   uiModeToServer,
 } from "@/lib/appearance-adapter";
 import AccentButton from "@/components/ui/Button";
-import { UpdateSSODTO } from "@/services/dto/tenant-dto";
+import { UpdateAccessibilityDTO, UpdateApiDTO, UpdateComplianceDTO, UpdateSSODTO } from "@/services/dto/tenant-dto";
 
 const INVOICES: Invoice[] = [
   {
@@ -143,11 +147,11 @@ export default function SettingsPage() {
     currency: "IDR",
   });
 
-  const [retention, setRetention] = useState<DataRetentionValues>({
+  const [retention, setRetention] = useState<UpdateComplianceDTO>({
     retentionDays: 90,
   });
 
-  const [apiKeys] = useState<ApiKeysValues>({
+  const [apiKeys] = useState<UpdateApiDTO>({
     publicKey: "pub_abcdefghijklmnop",
     secretKey: "sec_qrstuvwxyz123456",
   });
@@ -162,7 +166,7 @@ export default function SettingsPage() {
     invoiceIssuedEmail: false,
   });
 
-  const [a11y, setA11y] = useState<AccessibilityValues>({
+  const [a11y, setA11y] = useState<UpdateAccessibilityDTO>({
     reduceMotion: false,
     fontSize: "normal",
   });
@@ -174,6 +178,10 @@ export default function SettingsPage() {
   const mutInt = useUpdateIntegration();
   const mutSso = useUpdateSSO();
   const mutProf = useUpdateProfile();
+  const mutNot = useUpdateNotifications();
+  const mutAcc = useUpdateAccessibility();
+  const mutCom = useUpdateCompliance();
+  const mutApi = useUpdateApi();
   const { data: settings } = useTenantSettings();
 
   const logoFileRef = useRef<File | null>(null);
@@ -429,6 +437,65 @@ export default function SettingsPage() {
         addToast({
           title: "Profile saved",
           description: "Profile saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if(section === "notifications") {
+        await mutNot.mutateAsync({
+          orderCreatedEmail: notif.orderCreatedEmail,
+          invoiceIssueEmail: notif.invoiceIssuedEmail
+        });
+
+        addToast({
+          title: "Notifications saved",
+          description: "Notifications saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if(section === "accessibility") {
+        await mutAcc.mutateAsync({
+          reduceMotion: a11y.reduceMotion,
+          fontSize: a11y.fontSize
+        });
+
+        addToast({
+          title: "Accessibility saved",
+          description: "Accessibility saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if(section === "compliance") {
+        await mutCom.mutateAsync({
+          retentionDays: retention.retentionDays
+        });
+
+        addToast({
+          title: "Compliance saved",
+          description: "Compliance saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
+      if(section === "api") {
+        await mutApi.mutateAsync({
+          publicKey: apiKeys.publicKey,
+          secretKey: apiKeys.secretKey
+        });
+
+        addToast({
+          title: "Api saved",
+          description: "Api saved successfully",
           color: "success",
         });
 

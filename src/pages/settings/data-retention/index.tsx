@@ -1,20 +1,16 @@
-// components/settings/DataRetentionSection.tsx
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Select, SelectItem } from "@heroui/select";
 import { Button } from "@heroui/button";
 
 import Row from "@/components/layout/row";
 import Col from "@/components/layout/col";
+import { UpdateComplianceDTO } from "@/services/dto/tenant-dto";
 
-export type DataRetentionValues = {
-  // batasi ke nilai yang didukung
-  retentionDays: 7 | 30 | 60 | 90 | 180 | 365;
-};
 
 type Props = {
-  values: DataRetentionValues;
-  onChange: (patch: Partial<DataRetentionValues>) => void;
-  onExportJSON?: () => void; // handler klik Export JSON
+  values: UpdateComplianceDTO;
+  onChange: (patch: Partial<UpdateComplianceDTO>) => void;
+  onExportJSON?: () => void;
   className?: string;
 };
 
@@ -52,7 +48,7 @@ export default function DataRetentionSection({
               onSelectionChange={(keys) => {
                 const v = Number(
                   Array.from(keys)[0],
-                ) as DataRetentionValues["retentionDays"];
+                ) as UpdateComplianceDTO["retentionDays"];
 
                 onChange({ retentionDays: v });
               }}
