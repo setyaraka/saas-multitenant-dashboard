@@ -131,3 +131,11 @@ export interface UpdateApiDTO {
   publicKey: string;
   secretKey: string;
 }
+
+export interface UpdateRoleMatrixDTO {
+  admin: string[];
+  manager: string[];
+  cashier: string[];
+  kitchen: string[];
+  viewer: string[];
+}

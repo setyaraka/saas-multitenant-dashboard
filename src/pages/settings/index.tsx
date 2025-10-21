@@ -32,6 +32,7 @@ import {
   useUpdateLocalization,
   useUpdateNotifications,
   useUpdateProfile,
+  useUpdateRoleMatrix,
   useUpdateSSO,
   useUploadLogo,
 } from "@/hooks/use-tenant-setting";
@@ -201,6 +202,7 @@ export default function SettingsPage() {
   const mutAcc = useUpdateAccessibility();
   const mutCom = useUpdateCompliance();
   const mutApi = useUpdateApi();
+  const mutRole = useUpdateRoleMatrix();
   const { data: settings } = useTenantSettings();
 
   const logoFileRef = useRef<File | null>(null);
@@ -514,9 +516,31 @@ export default function SettingsPage() {
         return;
       }
 
+      if (section === "roles") {
+        await mutRole.mutateAsync({
+          admin: matrix.Admin,
+          manager: matrix.Manager,
+          cashier: matrix.Cashier,
+          kitchen: matrix.Kitchen,
+          viewer: matrix.Viewer,
+        });
+
+        addToast({
+          title: "Role Matrix saved",
+          description: "Role Matrix saved successfully",
+          color: "success",
+        });
+
+        return;
+      }
+
       alert("Bagian ini belum terhubung ke API (di luar Epic 4).");
-    } catch (e: any) {
-      alert(e?.message ?? "Gagal menyimpan");
+    } catch (error: any) {
+      addToast({
+        title: error.status,
+        description: error?.message ?? "Something went wrong",
+        color: "danger",
+      });
     }
   }
 

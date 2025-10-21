@@ -74,30 +74,30 @@ export default function RoleMatrixSection({
 
                 <TableCell className="font-medium">
                   <Checkbox
-                    isSelected={isChecked(role, "ORDERS.READ")}
+                    isSelected={isChecked(role, "orders.read")}
                     size="sm"
-                    onValueChange={(v) => toggle(role, "ORDERS.READ", v)}
+                    onValueChange={(v) => toggle(role, "orders.read", v)}
                   />
                 </TableCell>
                 <TableCell className="font-medium">
                   <Checkbox
-                    isSelected={isChecked(role, "ORDERS.UPDATE")}
+                    isSelected={isChecked(role, "orders.update")}
                     size="sm"
-                    onValueChange={(v) => toggle(role, "ORDERS.READ", v)}
+                    onValueChange={(v) => toggle(role, "orders.update", v)}
                   />
                 </TableCell>
                 <TableCell className="font-medium">
                   <Checkbox
-                    isSelected={isChecked(role, "MENU.MANAGE")}
+                    isSelected={isChecked(role, "menu.manage")}
                     size="sm"
-                    onValueChange={(v) => toggle(role, "MENU.MANAGE", v)}
+                    onValueChange={(v) => toggle(role, "menu.manage", v)}
                   />
                 </TableCell>
                 <TableCell className="font-medium">
                   <Checkbox
-                    isSelected={isChecked(role, "USERS.MANAGE")}
+                    isSelected={isChecked(role, "users.manage")}
                     size="sm"
-                    onValueChange={(v) => toggle(role, "USERS.MANAGE", v)}
+                    onValueChange={(v) => toggle(role, "users.manage", v)}
                   />
                 </TableCell>
               </TableRow>

@@ -9,6 +9,7 @@ import {
   UpdateLocalizationDto,
   UpdateNotificationsDTO,
   UpdateProfileDTO,
+  UpdateRoleMatrixDTO,
   UpdateSSODTO,
 } from "./dto/tenant-dto";
 
@@ -104,6 +105,13 @@ export const TenantsApi = {
 
   updateApi: (tenantId: string, body: UpdateApiDTO) =>
     request<SettingsResp>(`/tenants/${tenantId}/settings/api`, {
+      method: "PATCH",
+      body,
+      tenantScoped: true,
+    }),
+
+  updateRoleMatrix: (tenantId: string, body: UpdateRoleMatrixDTO) =>
+    request<SettingsResp>(`/tenants/${tenantId}/settings/role-matrix`, {
       method: "PATCH",
       body,
       tenantScoped: true,
