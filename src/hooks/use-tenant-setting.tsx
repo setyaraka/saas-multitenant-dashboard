@@ -16,6 +16,7 @@ import {
   UpdateAccessibilityDTO,
   UpdateComplianceDTO,
   UpdateApiDTO,
+  UpdateRoleMatrixDTO,
 } from "@/services/dto/tenant-dto";
 
 const queryKey = {
@@ -197,6 +198,17 @@ export function useUpdateApi() {
 
   return useMutation({
     mutationFn: (body: UpdateApiDTO) => TenantsApi.updateApi(tenantId, body),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
+  });
+}
+export function useUpdateRoleMatrix() {
+  const qc = useQueryClient();
+  const tenantId = useTenantId();
+
+  return useMutation({
+    mutationFn: (body: UpdateRoleMatrixDTO) =>
+      TenantsApi.updateRoleMatrix(tenantId, body),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: queryKey.settings(tenantId) }),
   });
