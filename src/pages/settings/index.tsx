@@ -249,6 +249,11 @@ export default function SettingsPage() {
       fullName: settings.users.name,
       email: settings.users.email,
     }));
+
+    setA11y(() => ({
+      reduceMotion: settings.accessibility.reduceMotion,
+      fontSize: settings.accessibility.fontSize,
+    }))
   }, [settings]);
 
   const renderSection = () => {

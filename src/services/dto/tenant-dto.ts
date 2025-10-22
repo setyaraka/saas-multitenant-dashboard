@@ -73,6 +73,7 @@ export interface SettingsResp {
   logoUrl: string | null;
   integration: UpdateIntegrationDto;
   users: UserSetting;
+  accessibility: UpdateAccessibilityDTO;
 }
 
 export interface UpdateAppearanceDto {
